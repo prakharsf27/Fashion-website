@@ -24,8 +24,12 @@ const outfitUploadsDir = path.join(uploadsDir, 'outfits');
 const tryonUploadsDir = path.join(uploadsDir, 'tryon');
 
 [uploadsDir, outfitUploadsDir, tryonUploadsDir].forEach(dir => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  try {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  } catch (e) {
+    console.warn('Could not create directory:', dir, e.message);
   }
 });
 
@@ -87,3 +91,5 @@ app.listen(PORT, () => {
   console.log(`   NIFT Fashion Tech Virtual Try-On Ready              `);
   console.log(`=======================================================`);
 });
+
+export default app;

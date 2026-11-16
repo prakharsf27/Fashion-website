@@ -20,8 +20,12 @@ export function isMongoActive() {
 
 // Ensure data file exists with seed data
 function ensureJsonFile() {
-  if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(initialOutfits, null, 2), 'utf-8');
+  try {
+    if (!fs.existsSync(DATA_FILE)) {
+      fs.writeFileSync(DATA_FILE, JSON.stringify(initialOutfits, null, 2), 'utf-8');
+    }
+  } catch (err) {
+    console.warn('Could not initialize outfits.json on disk (may be read-only):', err.message);
   }
 }
 
@@ -29,23 +33,27 @@ function ensureJsonFile() {
 function readJsonOutfits() {
   ensureJsonFile();
   try {
-    const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-    const data = JSON.parse(raw);
-    if (!Array.isArray(data) || data.length === 0) {
-      fs.writeFileSync(DATA_FILE, JSON.stringify(initialOutfits, null, 2), 'utf-8');
-      return initialOutfits;
+    if (fs.existsSync(DATA_FILE)) {
+      const raw = fs.readFileSync(DATA_FILE, 'utf-8');
+      const data = JSON.parse(raw);
+      if (Array.isArray(data) && data.length > 0) {
+        return data;
+      }
     }
-    return data;
+    return initialOutfits;
   } catch (err) {
     console.error('Error reading outfits.json, reverting to seed:', err.message);
-    fs.writeFileSync(DATA_FILE, JSON.stringify(initialOutfits, null, 2), 'utf-8');
     return initialOutfits;
   }
 }
 
 // Write to JSON file
 function writeJsonOutfits(outfits) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(outfits, null, 2), 'utf-8');
+  try {
+    fs.writeFileSync(DATA_FILE, JSON.stringify(outfits, null, 2), 'utf-8');
+  } catch (err) {
+    console.warn('Could not persist outfits to disk (may be read-only):', err.message);
+  }
 }
 
 export const outfitStore = {
