@@ -10,7 +10,7 @@ export default function Navbar() {
     { id: 'home', label: 'Home' },
     { id: 'outfits', label: 'Explore Outfits' },
     { id: 'tryon', label: 'Virtual Try-On', highlight: true },
-    { id: 'about', label: 'NIFT Concept' },
+    { id: 'about', label: 'Atelier Philosophy' },
     { id: 'admin', label: 'Atelier Admin' },
   ];
 
@@ -35,7 +35,7 @@ export default function Navbar() {
             </span>
           </div>
           <span className="text-[10px] tracking-atelier uppercase text-atelier-500 font-medium">
-            Atelier Virtual Try-On • NIFT
+            Atelier Virtual Try-On • Paris / New York
           </span>
         </div>
 

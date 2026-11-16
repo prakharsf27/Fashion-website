@@ -1,30 +1,53 @@
-import React, { useState, useRef } from 'react';
-import { Plus, Trash2, Edit3, Image as ImageIcon, Upload, X, Check, AlertCircle, Sparkles, Layers } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { 
+  Plus, 
+  Trash2, 
+  Edit3, 
+  Image as ImageIcon, 
+  Upload, 
+  X, 
+  Check, 
+  AlertCircle, 
+  Sparkles, 
+  Layers, 
+  ShieldCheck, 
+  ExternalLink 
+} from 'lucide-react';
 import { createOutfit, deleteOutfit } from '../utils/api';
+import { KolorsProvider } from '../services/KolorsProvider';
 import { useTryOn } from '../context/TryOnContext';
 
 export default function AdminPage() {
-  const { outfits, refreshOutfits, addToast, openOutfitDetail } = useTryOn();
-  const [activeTab, setActiveTab] = useState('add'); // 'add' or 'manage'
+  const { outfits, refreshOutfits, addToast, openOutfitDetail, showcaseList, refreshShowcase } = useTryOn();
+  const [activeTab, setActiveTab] = useState('add'); // 'add' | 'manage' | 'showcase'
   
-  // Form State
+  // Outfit Form State
   const [name, setName] = useState('');
   const [category, setCategory] = useState('Western Haute Couture');
-  const [designer, setDesigner] = useState('NIFT Design Atelier');
+  const [designer, setDesigner] = useState('Maison De L\'Atelier');
   const [description, setDescription] = useState('');
   const [fabric, setFabric] = useState('');
   const [silhouette, setSilhouette] = useState('');
   const [color, setColor] = useState('');
   const [season, setSeason] = useState("SS'26 Atelier");
   
-  // Uploaded files & Image URLs (supports 6-7 images!)
+  // Outfit Images State
   const [imageFiles, setImageFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [externalUrlInput, setExternalUrlInput] = useState('');
   const [externalUrls, setExternalUrls] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const fileInputRef = useRef(null);
+
+  // Showcase Form State
+  const [editingShowcaseId, setEditingShowcaseId] = useState(null);
+  const [scOutfitName, setScOutfitName] = useState('');
+  const [scCategory, setScCategory] = useState('Western Haute Couture');
+  const [scPersonUrl, setScPersonUrl] = useState('');
+  const [scGarmentUrl, setScGarmentUrl] = useState('');
+  const [scResultUrl, setScResultUrl] = useState('');
+  const [scNotes, setScNotes] = useState('');
+  const [scSubmitting, setScSubmitting] = useState(false);
 
   const categories = [
     'Western Haute Couture',
@@ -36,7 +59,7 @@ export default function AdminPage() {
     'Avant-Garde'
   ];
 
-  // Handle local file selection
+  // Handle local file selection for outfits
   const handleFilesSelected = (e) => {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
@@ -44,7 +67,6 @@ export default function AdminPage() {
     const newFiles = [...imageFiles, ...files];
     setImageFiles(newFiles);
 
-    // Generate local previews
     const newPreviews = files.map(file => URL.createObjectURL(file));
     setImagePreviews(prev => [...prev, ...newPreviews]);
   };
@@ -54,7 +76,6 @@ export default function AdminPage() {
     setImagePreviews(prev => prev.filter((_, i) => i !== index));
   };
 
-  // Handle external URL additions
   const handleAddExternalUrl = () => {
     if (!externalUrlInput.trim()) return;
     setExternalUrls(prev => [...prev, externalUrlInput.trim()]);
@@ -65,10 +86,9 @@ export default function AdminPage() {
     setExternalUrls(prev => prev.filter((_, i) => i !== index));
   };
 
-  // Total images count
   const totalImagesCount = imagePreviews.length + externalUrls.length;
 
-  // Handle Save Outfit
+  // Save new outfit
   const handleSaveOutfit = async (e) => {
     e.preventDefault();
 
@@ -99,9 +119,8 @@ export default function AdminPage() {
       formData.append('color', color || 'Neutral Tone');
       formData.append('season', season || "SS'26");
       formData.append('externalImages', JSON.stringify(externalUrls));
-      formData.append('tags', JSON.stringify([category, 'NIFT Collection', 'SS26']));
+      formData.append('tags', JSON.stringify([category, 'Atelier Collection', 'SS26']));
 
-      // Append local image files
       imageFiles.forEach(file => {
         formData.append('images', file);
       });
@@ -109,7 +128,6 @@ export default function AdminPage() {
       const saved = await createOutfit(formData);
       addToast(`"${saved.name}" added successfully to the wardrobe!`, 'success');
       
-      // Reset form
       setName('');
       setDescription('');
       setFabric('');
@@ -119,7 +137,6 @@ export default function AdminPage() {
       setImagePreviews([]);
       setExternalUrls([]);
       
-      // Refresh global store
       await refreshOutfits();
       setActiveTab('manage');
     } catch (err) {
@@ -130,7 +147,7 @@ export default function AdminPage() {
     }
   };
 
-  // Handle Delete Outfit
+  // Delete outfit
   const handleDeleteOutfit = async (id, outfitName) => {
     if (!window.confirm(`Are you sure you want to remove "${outfitName}" from the atelier collection?`)) {
       return;
@@ -145,6 +162,58 @@ export default function AdminPage() {
     }
   };
 
+  // Pre-fill showcase edit form
+  const handleEditShowcase = (item) => {
+    setEditingShowcaseId(item.id);
+    setScOutfitName(item.outfitName);
+    setScCategory(item.category);
+    setScPersonUrl(item.personImage);
+    setScGarmentUrl(item.garmentImage);
+    setScResultUrl(item.resultImage);
+    setScNotes(item.notes || '');
+  };
+
+  // Reset showcase edit form
+  const handleResetShowcaseForm = () => {
+    setEditingShowcaseId(null);
+    setScOutfitName('');
+    setScCategory('Western Haute Couture');
+    setScPersonUrl('');
+    setScGarmentUrl('');
+    setScResultUrl('');
+    setScNotes('');
+  };
+
+  // Save showcase entry
+  const handleSaveShowcase = async (e) => {
+    e.preventDefault();
+    if (!scPersonUrl.trim() || !scGarmentUrl.trim() || !scResultUrl.trim() || !scOutfitName.trim()) {
+      addToast('Outfit name, person photo URL, garment reference URL, and Kolors result URL are all required.', 'warning');
+      return;
+    }
+
+    setScSubmitting(true);
+    try {
+      const formData = new FormData();
+      if (editingShowcaseId) formData.append('id', editingShowcaseId);
+      formData.append('outfitName', scOutfitName);
+      formData.append('category', scCategory);
+      formData.append('personImage', scPersonUrl);
+      formData.append('garmentImage', scGarmentUrl);
+      formData.append('resultImage', scResultUrl);
+      formData.append('notes', scNotes || 'Verified genuine Kwai Kolors Virtual Try-On inference.');
+
+      await KolorsProvider.saveShowcase(formData);
+      addToast('Showcase entry saved successfully.', 'success');
+      handleResetShowcaseForm();
+      await refreshShowcase();
+    } catch (err) {
+      addToast('Failed to save showcase entry: ' + err.message, 'error');
+    } finally {
+      setScSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-atelier-50 py-12 sm:py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -155,14 +224,13 @@ export default function AdminPage() {
             <div className="flex items-center space-x-2 text-[10px] uppercase tracking-atelier text-champagne-600 font-semibold mb-2">
               <span>Collection Owner Portal</span>
               <span>•</span>
-              <span>Persistent Wardrobe Management</span>
+              <span>Persistent Wardrobe & Kolors Showcase</span>
             </div>
             <h1 className="font-serif text-3xl sm:text-5xl text-atelier-950 font-light tracking-tight">
               Atelier Wardrobe Administration
             </h1>
             <p className="text-xs sm:text-sm text-atelier-600 font-light mt-1 max-w-xl">
-              Add new garments, manage 6–7 editorial photography angles, and update textiles without editing website code. 
-              Changes persist directly on the server.
+              Add new garments, manage 6–7 editorial photography angles, and curate the three genuine Kwai Kolors virtual try-on showcase entries.
             </p>
           </div>
 
@@ -170,21 +238,30 @@ export default function AdminPage() {
           <div className="inline-flex border border-atelier-300 bg-atelier-100 p-0.5">
             <button
               onClick={() => setActiveTab('add')}
-              className={`px-4 py-2 text-xs uppercase tracking-wider font-medium flex items-center space-x-1.5 transition-all ${
+              className={`px-3.5 py-2 text-xs uppercase tracking-wider font-medium flex items-center space-x-1.5 transition-all ${
                 activeTab === 'add' ? 'bg-atelier-950 text-white shadow-sm' : 'text-atelier-700 hover:text-atelier-950'
               }`}
             >
               <Plus className="w-3.5 h-3.5" />
-              <span>Add New Outfit</span>
+              <span>Add Outfit</span>
             </button>
             <button
               onClick={() => setActiveTab('manage')}
-              className={`px-4 py-2 text-xs uppercase tracking-wider font-medium flex items-center space-x-1.5 transition-all ${
+              className={`px-3.5 py-2 text-xs uppercase tracking-wider font-medium flex items-center space-x-1.5 transition-all ${
                 activeTab === 'manage' ? 'bg-atelier-950 text-white shadow-sm' : 'text-atelier-700 hover:text-atelier-950'
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>Current Wardrobe ({outfits.length})</span>
+              <span>Wardrobe ({outfits.length})</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('showcase')}
+              className={`px-3.5 py-2 text-xs uppercase tracking-wider font-medium flex items-center space-x-1.5 transition-all ${
+                activeTab === 'showcase' ? 'bg-atelier-950 text-white shadow-sm' : 'text-atelier-700 hover:text-atelier-950'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-champagne-400" />
+              <span>Kolors Showcase (3)</span>
             </button>
           </div>
         </div>
@@ -205,7 +282,6 @@ export default function AdminPage() {
             {/* Basic Info Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               
-              {/* Outfit Name */}
               <div>
                 <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-2">
                   Outfit Name *
@@ -220,7 +296,6 @@ export default function AdminPage() {
                 />
               </div>
 
-              {/* Category Selector */}
               <div>
                 <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-2">
                   Category *
@@ -236,21 +311,19 @@ export default function AdminPage() {
                 </select>
               </div>
 
-              {/* Designer */}
               <div>
                 <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-2">
-                  Designer / NIFT Studio
+                  Designer / Maison Studio
                 </label>
                 <input
                   type="text"
                   value={designer}
                   onChange={(e) => setDesigner(e.target.value)}
-                  placeholder="e.g. Atelier NIFT Master Class"
+                  placeholder="e.g. Maison De L'Atelier Paris"
                   className="w-full bg-atelier-50 border border-atelier-200 py-2.5 px-3.5 text-xs text-atelier-950 focus:outline-none focus:border-atelier-900 transition-colors"
                 />
               </div>
 
-              {/* Season */}
               <div>
                 <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-2">
                   Season / Collection Tag
@@ -264,7 +337,6 @@ export default function AdminPage() {
                 />
               </div>
 
-              {/* Fabric */}
               <div>
                 <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-2">
                   Fabrication & Weave Details
@@ -278,7 +350,6 @@ export default function AdminPage() {
                 />
               </div>
 
-              {/* Silhouette */}
               <div>
                 <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-2">
                   Silhouette & Cut
@@ -294,7 +365,6 @@ export default function AdminPage() {
 
             </div>
 
-            {/* Description */}
             <div>
               <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-2">
                 Editorial Narrative & Description *
@@ -325,7 +395,6 @@ export default function AdminPage() {
                 </span>
               </div>
 
-              {/* Drag and Drop Zone */}
               <div
                 onClick={() => fileInputRef.current?.click()}
                 className="border-2 border-dashed border-atelier-300 hover:border-atelier-900 p-8 text-center cursor-pointer transition-colors bg-atelier-50/50 mb-4"
@@ -347,7 +416,6 @@ export default function AdminPage() {
                 </p>
               </div>
 
-              {/* External Image URL adder (optional alternative) */}
               <div className="flex items-center space-x-2 mb-6">
                 <input
                   type="url"
@@ -365,14 +433,12 @@ export default function AdminPage() {
                 </button>
               </div>
 
-              {/* Uploaded Images Preview Strip */}
               {totalImagesCount > 0 && (
                 <div>
                   <p className="text-[10px] uppercase tracking-wider text-atelier-500 font-semibold mb-2">
                     Image Previews (First image is used as Main Showcase):
                   </p>
                   <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-7 gap-3">
-                    {/* Local previews */}
                     {imagePreviews.map((url, idx) => (
                       <div key={'local-' + idx} className="relative aspect-[3/4] bg-atelier-100 border border-atelier-300 overflow-hidden group">
                         <img src={url} alt={`Upload ${idx + 1}`} className="w-full h-full object-cover" />
@@ -391,7 +457,6 @@ export default function AdminPage() {
                       </div>
                     ))}
 
-                    {/* External previews */}
                     {externalUrls.map((url, idx) => (
                       <div key={'ext-' + idx} className="relative aspect-[3/4] bg-atelier-100 border border-atelier-300 overflow-hidden group">
                         <img src={url} alt={`URL ${idx + 1}`} className="w-full h-full object-cover" />
@@ -415,7 +480,6 @@ export default function AdminPage() {
 
             </div>
 
-            {/* Submit Button */}
             <div className="pt-6 border-t border-atelier-100 flex items-center justify-end space-x-4">
               <button
                 type="submit"
@@ -489,6 +553,214 @@ export default function AdminPage() {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Tab 3: Kolors Showcase Manager (Exact 3 Results) */}
+        {activeTab === 'showcase' && (
+          <div className="space-y-8 animate-fade-in">
+            
+            <div className="bg-white border border-atelier-200 p-6 sm:p-8 shadow-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-atelier-100 mb-6 gap-3">
+                <div>
+                  <div className="flex items-center space-x-2 text-[10px] uppercase tracking-atelier text-champagne-600 font-bold mb-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Exact Three Genuine Results Archive</span>
+                  </div>
+                  <h3 className="font-serif text-2xl text-atelier-950 font-normal">
+                    Kwai Kolors Try-On Showcase Manager
+                  </h3>
+                  <p className="text-xs text-atelier-500 font-light">
+                    Manage the three genuine Kolors-generated outputs exhibited in the runway showcase.
+                  </p>
+                </div>
+
+                <a
+                  href={KolorsProvider.spaceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 border border-atelier-300 text-xs text-atelier-700 hover:text-atelier-950 font-medium self-start sm:self-center"
+                >
+                  <span>Open Kolors Space</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+
+              {/* Showcase List (3 slots) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                {showcaseList.map((item, idx) => (
+                  <div key={item.id || idx} className="bg-atelier-50 border border-atelier-200 p-4 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[10px] uppercase tracking-widest font-mono text-champagne-700 font-bold">
+                          Slot 0{idx + 1}
+                        </span>
+                        <span className="text-[9px] uppercase font-mono px-2 py-0.5 bg-emerald-100 text-emerald-800">
+                          Genuine Kolors
+                        </span>
+                      </div>
+
+                      <h4 className="font-serif text-base text-atelier-950 font-normal line-clamp-1 mb-1">
+                        {item.outfitName}
+                      </h4>
+                      <p className="text-[10px] uppercase tracking-wider text-atelier-500 mb-3">
+                        {item.category}
+                      </p>
+
+                      {/* 3 mini thumbnails */}
+                      <div className="grid grid-cols-3 gap-1.5 mb-3">
+                        <div className="aspect-[3/4] bg-atelier-200 border border-atelier-300 overflow-hidden relative">
+                          <img src={item.personImage} alt="Person" className="w-full h-full object-cover" />
+                          <span className="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[7px] text-center">Person</span>
+                        </div>
+                        <div className="aspect-[3/4] bg-atelier-200 border border-atelier-300 overflow-hidden relative">
+                          <img src={item.garmentImage} alt="Garment" className="w-full h-full object-cover" />
+                          <span className="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[7px] text-center">Garment</span>
+                        </div>
+                        <div className="aspect-[3/4] bg-atelier-200 border border-champagne-400 overflow-hidden relative">
+                          <img src={item.resultImage} alt="Result" className="w-full h-full object-cover" />
+                          <span className="absolute bottom-0 inset-x-0 bg-champagne-700 text-white text-[7px] text-center">Result</span>
+                        </div>
+                      </div>
+
+                      <p className="text-[11px] text-atelier-600 font-light italic line-clamp-2">
+                        "{item.notes}"
+                      </p>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-atelier-200 flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={() => handleEditShowcase(item)}
+                        className="text-xs uppercase tracking-wider font-semibold text-atelier-900 hover:text-champagne-600 flex items-center space-x-1"
+                      >
+                        <Edit3 className="w-3 h-3" />
+                        <span>Edit Slot</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Showcase Edit / Upload Form */}
+              <div className="border-t border-atelier-200 pt-6">
+                <h4 className="font-serif text-xl text-atelier-950 font-normal mb-1">
+                  {editingShowcaseId ? `Edit Showcase Slot (${editingShowcaseId})` : 'Update a Showcase Entry'}
+                </h4>
+                <p className="text-xs text-atelier-500 font-light mb-4">
+                  Provide genuine image URLs or assets for Person Photograph, Garment Reference, and Kolors Result.
+                </p>
+
+                <form onSubmit={handleSaveShowcase} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-1">
+                        Outfit Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={scOutfitName}
+                        onChange={(e) => setScOutfitName(e.target.value)}
+                        placeholder="e.g. The Lumière Alabaster Column Gown"
+                        className="w-full bg-atelier-50 border border-atelier-200 py-2 px-3 text-xs text-atelier-950 focus:outline-none focus:border-atelier-900"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-1">
+                        Category *
+                      </label>
+                      <select
+                        value={scCategory}
+                        onChange={(e) => setScCategory(e.target.value)}
+                        className="w-full bg-atelier-50 border border-atelier-200 py-2 px-3 text-xs text-atelier-950 focus:outline-none focus:border-atelier-900"
+                      >
+                        {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-1">
+                        1. Person Photo URL *
+                      </label>
+                      <input
+                        type="url"
+                        required
+                        value={scPersonUrl}
+                        onChange={(e) => setScPersonUrl(e.target.value)}
+                        placeholder="https://... person photo"
+                        className="w-full bg-atelier-50 border border-atelier-200 py-2 px-3 text-xs text-atelier-950 focus:outline-none focus:border-atelier-900"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-1">
+                        2. Garment Reference URL *
+                      </label>
+                      <input
+                        type="url"
+                        required
+                        value={scGarmentUrl}
+                        onChange={(e) => setScGarmentUrl(e.target.value)}
+                        placeholder="https://... garment photo"
+                        className="w-full bg-atelier-50 border border-atelier-200 py-2 px-3 text-xs text-atelier-950 focus:outline-none focus:border-atelier-900"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-1">
+                        3. Kolors Result Image URL *
+                      </label>
+                      <input
+                        type="url"
+                        required
+                        value={scResultUrl}
+                        onChange={(e) => setScResultUrl(e.target.value)}
+                        placeholder="https://... generated result"
+                        className="w-full bg-atelier-50 border border-atelier-200 py-2 px-3 text-xs text-atelier-950 focus:outline-none focus:border-atelier-900"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] uppercase tracking-wider text-atelier-700 font-semibold mb-1">
+                      Inference & Craft Notes
+                    </label>
+                    <input
+                      type="text"
+                      value={scNotes}
+                      onChange={(e) => setScNotes(e.target.value)}
+                      placeholder="e.g. Sculptural silk faille draped seamlessly over neutral studio portrait."
+                      className="w-full bg-atelier-50 border border-atelier-200 py-2 px-3 text-xs text-atelier-950 focus:outline-none focus:border-atelier-900"
+                    />
+                  </div>
+
+                  <div className="flex items-center space-x-3 pt-2">
+                    <button
+                      type="submit"
+                      disabled={scSubmitting}
+                      className="px-6 py-2.5 bg-atelier-950 text-white text-xs uppercase tracking-wider font-semibold hover:bg-atelier-800 transition-colors shadow-sm"
+                    >
+                      {scSubmitting ? 'Saving...' : 'Save Genuine Showcase Slot'}
+                    </button>
+                    {editingShowcaseId && (
+                      <button
+                        type="button"
+                        onClick={handleResetShowcaseForm}
+                        className="text-xs text-atelier-500 hover:text-atelier-900 underline"
+                      >
+                        Cancel Edit
+                      </button>
+                    )}
+                  </div>
+                </form>
+              </div>
+
+            </div>
+
           </div>
         )}
 

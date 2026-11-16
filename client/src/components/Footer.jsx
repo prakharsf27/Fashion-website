@@ -25,12 +25,11 @@ export default function Footer() {
               Discover your style. Visualise your look.
             </p>
             <p className="text-xs text-atelier-400 font-light leading-relaxed max-w-sm mb-6">
-              A fashion-tech thesis project developed for the National Institute of Fashion Technology (NIFT). 
-              Exploring neural virtual try-on as a medium to bridge haute couture draping, bespoke garment archiving, and interactive digital fitting.
+              A high-fashion technology platform bridging haute couture draping, bespoke garment archiving, and interactive neural virtual try-on.
             </p>
             <div className="inline-flex items-center space-x-2 text-[11px] text-atelier-300 font-mono">
               <span className="w-2 h-2 rounded-full bg-champagne-400"></span>
-              <span>NIFT Exhibition Showcase Edition</span>
+              <span>Maison Atelier • SS'26 Lookbook Edition</span>
             </div>
           </div>
 
@@ -70,7 +69,7 @@ export default function Footer() {
                   onClick={() => { setActiveView('about'); scrollToTop(); }}
                   className="hover:text-white transition-colors"
                 >
-                  NIFT Design Thesis
+                  Atelier Philosophy
                 </button>
               </li>
               <li>
@@ -87,20 +86,20 @@ export default function Footer() {
           {/* Exhibition Specs & Credits */}
           <div className="md:col-span-4">
             <h4 className="text-xs uppercase tracking-widest text-champagne-300 font-semibold mb-4">
-              Academic & Design Credits
+              Atelier & Technology Credits
             </h4>
             <div className="space-y-2 text-xs text-atelier-400 font-light leading-relaxed">
               <p>
-                <strong className="text-atelier-200 font-medium">Institution:</strong> National Institute of Fashion Technology (NIFT)
+                <strong className="text-atelier-200 font-medium">Maison:</strong> The Fit Room Atelier
               </p>
               <p>
-                <strong className="text-atelier-200 font-medium">Specialization:</strong> Fashion Design & Digital Technology
+                <strong className="text-atelier-200 font-medium">Virtual Try-On:</strong> Kwai Kolors Neural Diffusion Engine
               </p>
               <p>
-                <strong className="text-atelier-200 font-medium">Architecture:</strong> React, Tailwind CSS, Express, Persistent Storage & Neural Diffusion Draping Pipeline
+                <strong className="text-atelier-200 font-medium">Architecture:</strong> React, Tailwind CSS, Express & Multi-Angle Draping Pipeline
               </p>
               <p className="pt-2 text-[11px] text-atelier-500 font-mono">
-                Project curated for academic assessment & graduation runway display.
+                Curated for bespoke styling and digital runway presentation.
               </p>
             </div>
           </div>
@@ -109,7 +108,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-atelier-500 font-light gap-4">
-          <p>© {new Date().getFullYear()} The Fit Room • NIFT Fashion Tech. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} The Fit Room • Luxury Fashion Virtual Try-On. All rights reserved.</p>
           
           <button
             onClick={scrollToTop}

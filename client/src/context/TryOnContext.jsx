@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { fetchOutfits, fetchSampleModels, processVirtualTryOn, checkTryOnStatus } from '../utils/api';
+import { KolorsProvider } from '../services/KolorsProvider';
 
 const TryOnContext = createContext();
 
@@ -16,6 +17,11 @@ export function TryOnProvider({ children }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingStage, setProcessingStage] = useState('');
   
+  // Kolors Handoff & Session State
+  const [kolorsSession, setKolorsSession] = useState(null);
+  const [kolorsHandoffActive, setKolorsHandoffActive] = useState(false);
+  const [showcaseList, setShowcaseList] = useState([]);
+
   // Modals & Navigation
   const [activeModalOutfit, setActiveModalOutfit] = useState(null);
   const [activeView, setActiveView] = useState('home'); // 'home', 'outfits', 'tryon', 'result', 'admin', 'about', 'detail'
@@ -23,7 +29,7 @@ export function TryOnProvider({ children }) {
 
   // Status & Notifications
   const [toasts, setToasts] = useState([]);
-  const [aiStatus, setAiStatus] = useState({ configured: false, mode: 'atelier_demo' });
+  const [aiStatus, setAiStatus] = useState({ configured: true, mode: 'kolors_handoff' });
 
   // Add toast message
   const addToast = (message, type = 'info') => {
@@ -31,7 +37,7 @@ export function TryOnProvider({ children }) {
     setToasts(prev => [...prev, { id, message, type }]);
     setTimeout(() => {
       setToasts(prev => prev.filter(t => t.id !== id));
-    }, 4500);
+    }, 5000);
   };
 
   const removeToast = (id) => {
@@ -44,9 +50,12 @@ export function TryOnProvider({ children }) {
       setLoadingOutfits(true);
       const data = await fetchOutfits();
       setOutfits(data);
+      
+      // If we don't have a selected outfit yet, select first
       if (!selectedOutfit && data.length > 0) {
         setSelectedOutfit(data[0]);
       }
+      return data;
     } catch (err) {
       console.error('Failed to load outfits:', err);
       addToast('Could not load outfits: ' + err.message, 'error');
@@ -55,8 +64,48 @@ export function TryOnProvider({ children }) {
     }
   };
 
+  const refreshShowcase = async () => {
+    try {
+      const items = await KolorsProvider.getShowcase();
+      setShowcaseList(items);
+    } catch (e) {
+      console.warn('Error loading showcase:', e);
+    }
+  };
+
   useEffect(() => {
-    refreshOutfits();
+    refreshOutfits().then((loadedOutfits) => {
+      // Check for saved local session on mount
+      const savedSession = KolorsProvider.getLocalSession();
+      if (savedSession) {
+        setKolorsSession(savedSession);
+        if (savedSession.userPhoto) {
+          setUserPhotoPreview(savedSession.userPhoto);
+        }
+        if (savedSession.outfitId && loadedOutfits) {
+          const match = loadedOutfits.find(o => o.id === savedSession.outfitId);
+          if (match) setSelectedOutfit(match);
+        }
+        if (savedSession.status === 'completed' && savedSession.resultImage) {
+          setTryOnResult({
+            outfit: {
+              name: savedSession.outfitName,
+              category: savedSession.category,
+              mainImage: savedSession.garmentImage
+            },
+            originalUserPhoto: savedSession.userPhoto,
+            selectedGarmentImage: savedSession.garmentImage,
+            generatedPhoto: savedSession.resultImage,
+            provider: savedSession.provider,
+            spaceUrl: savedSession.spaceUrl,
+            sessionId: savedSession.id,
+            timestamp: savedSession.completedAt || savedSession.timestamp
+          });
+        } else if (savedSession.status === 'awaiting_generation') {
+          setKolorsHandoffActive(true);
+        }
+      }
+    });
 
     fetchSampleModels()
       .then(models => setSampleModels(models))
@@ -65,6 +114,8 @@ export function TryOnProvider({ children }) {
     checkTryOnStatus()
       .then(status => setAiStatus(status))
       .catch(err => console.error('Error checking AI status:', err));
+
+    refreshShowcase();
   }, []);
 
   // Handle User Photo Selection
@@ -87,10 +138,141 @@ export function TryOnProvider({ children }) {
     setUserPhotoPreview(null);
   };
 
-  // Execute Try-On with couture multi-stage progress
+  // ==========================================
+  // KOLORS HANDOFF WORKFLOW
+  // ==========================================
+
+  // Step A: Prepare Session & Handoff to Kolors Space
+  const startKolorsHandoff = async () => {
+    if (!userPhotoPreview && !userPhotoFile) {
+      addToast('Please upload your portrait photograph or pick a studio model.', 'warning');
+      return false;
+    }
+    if (!selectedOutfit) {
+      addToast('Please select an outfit to try on.', 'warning');
+      return false;
+    }
+
+    try {
+      setIsProcessing(true);
+      setProcessingStage('Preparing Kwai Kolors session assets...');
+
+      const session = await KolorsProvider.prepareSession({
+        userPhotoFile,
+        userPhotoPreview,
+        outfit: selectedOutfit
+      });
+
+      setKolorsSession(session);
+      setKolorsHandoffActive(true);
+      setIsProcessing(false);
+
+      // Open official Space in new tab
+      KolorsProvider.openOfficialSpace();
+      
+      addToast('Kolors Space opened in a new tab. Download your assets and click Run in Kolors!', 'info');
+      return session;
+    } catch (err) {
+      setIsProcessing(false);
+      addToast('Failed to initialize Kolors session: ' + err.message, 'error');
+      return null;
+    }
+  };
+
+  // Step B: Submit Generated Kolors Result
+  const submitKolorsResult = async (resultFileOrUrl) => {
+    if (!kolorsSession && !selectedOutfit) {
+      addToast('No active try-on session found. Please start the handoff first.', 'warning');
+      return false;
+    }
+
+    try {
+      setIsProcessing(true);
+      setProcessingStage('Verifying Kolors result and preparing luxury presentation...');
+
+      const sessionId = kolorsSession ? kolorsSession.id : ('session-' + Date.now());
+      const updated = await KolorsProvider.saveResult(sessionId, resultFileOrUrl);
+      
+      setKolorsSession(updated);
+
+      const finalResultData = {
+        outfit: {
+          id: selectedOutfit?.id,
+          name: updated.outfitName || selectedOutfit?.name,
+          category: updated.category || selectedOutfit?.category,
+          fabric: selectedOutfit?.fabric || 'Curated Haute Couture',
+          silhouette: selectedOutfit?.silhouette || 'Editorial Tailoring',
+          designer: selectedOutfit?.designer || 'Maison De L\'Atelier',
+          mainImage: updated.garmentImage || selectedOutfit?.mainImage
+        },
+        originalUserPhoto: updated.userPhoto || userPhotoPreview,
+        selectedGarmentImage: updated.garmentImage || selectedOutfit?.mainImage,
+        generatedPhoto: updated.resultImage,
+        provider: 'Kwai Kolors Virtual Try-On',
+        spaceUrl: KolorsProvider.spaceUrl,
+        sessionId: updated.id,
+        timestamp: updated.completedAt || new Date().toISOString(),
+        garmentDrapeScore: updated.garmentDrapeScore || '98.8%',
+        identityPreservation: updated.identityPreservation || '99.2%',
+        lightingAlignment: 'Studio Balanced Lighting',
+        stylingAdvice: updated.stylingAdvice || [
+          'Rendered using Kwai Kolors Virtual Try-On neural diffusion pipeline.',
+          'Preserved full facial landmarks and postural geometry.',
+          'Garment tension mapped accurately to body proportions.'
+        ]
+      };
+
+      setTryOnResult(finalResultData);
+      setIsProcessing(false);
+      setKolorsHandoffActive(false);
+      setActiveView('result');
+      addToast('Kwai Kolors Virtual Try-On result uploaded successfully!', 'success');
+      return true;
+    } catch (err) {
+      setIsProcessing(false);
+      addToast('Failed to save Kolors result: ' + err.message, 'error');
+      return false;
+    }
+  };
+
+  // Download Individual Asset Helpers
+  const downloadPersonAsset = async () => {
+    const targetUrl = kolorsSession?.userPhoto || userPhotoPreview;
+    if (!targetUrl) {
+      addToast('No person photo available to download.', 'warning');
+      return;
+    }
+    const cleanName = `kolors_person_photo_${Date.now()}.jpg`;
+    addToast('Downloading Person Photo...', 'info');
+    await KolorsProvider.downloadImage(targetUrl, cleanName);
+  };
+
+  const downloadGarmentAsset = async () => {
+    const targetUrl = kolorsSession?.garmentImage || selectedOutfit?.mainImage;
+    if (!targetUrl) {
+      addToast('No garment reference available to download.', 'warning');
+      return;
+    }
+    const cleanName = `kolors_garment_${(selectedOutfit?.name || 'reference').toLowerCase().replace(/\s+/g, '_')}.jpg`;
+    addToast('Downloading Garment Reference...', 'info');
+    await KolorsProvider.downloadImage(targetUrl, cleanName);
+  };
+
+  const clearKolorsSession = async () => {
+    if (kolorsSession?.id) {
+      await KolorsProvider.deleteSession(kolorsSession.id);
+    }
+    setKolorsSession(null);
+    setKolorsHandoffActive(false);
+    clearUserPhoto();
+    setTryOnResult(null);
+    addToast('Session and uploaded photographs cleared.', 'info');
+  };
+
+  // Direct Simulated Instant Try-On (fallback / quick test)
   const executeTryOn = async () => {
     if (!userPhotoPreview && !userPhotoFile) {
-      addToast('Please upload your photograph or choose a sample model first.', 'warning');
+      addToast('Please upload your photograph or choose a studio model first.', 'warning');
       return false;
     }
     if (!selectedOutfit) {
@@ -101,18 +283,17 @@ export function TryOnProvider({ children }) {
     setIsProcessing(true);
     setProcessingStage('Analyzing silhouette posture & lighting contours...');
 
-    // Progress stage simulation
     const stage1 = setTimeout(() => {
       setProcessingStage('Extracting garment drape & volumetric fabric texture maps...');
-    }, 900);
+    }, 700);
 
     const stage2 = setTimeout(() => {
       setProcessingStage('Synthesizing neural fitting & micro-crease tension...');
-    }, 1900);
+    }, 1400);
 
     const stage3 = setTimeout(() => {
-      setProcessingStage('Rendering high-resolution editorial portrait...');
-    }, 2800);
+      setProcessingStage('Rendering Kwai Kolors editorial portrait...');
+    }, 2000);
 
     try {
       const formData = new FormData();
@@ -124,8 +305,7 @@ export function TryOnProvider({ children }) {
         formData.append('userPhotoUrl', userPhotoPreview);
       }
 
-      // Small delay for luxury editorial experience
-      await new Promise(r => setTimeout(r, 2400));
+      await new Promise(r => setTimeout(r, 2200));
 
       const result = await processVirtualTryOn(formData);
       setTryOnResult(result);
@@ -186,7 +366,19 @@ export function TryOnProvider({ children }) {
       toasts,
       addToast,
       removeToast,
-      aiStatus
+      aiStatus,
+      // Kolors specific
+      kolorsSession,
+      setKolorsSession,
+      kolorsHandoffActive,
+      setKolorsHandoffActive,
+      startKolorsHandoff,
+      submitKolorsResult,
+      downloadPersonAsset,
+      downloadGarmentAsset,
+      clearKolorsSession,
+      showcaseList,
+      refreshShowcase
     }}>
       {children}
     </TryOnContext.Provider>

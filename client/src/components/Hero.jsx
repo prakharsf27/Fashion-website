@@ -17,7 +17,7 @@ export default function Hero() {
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 border border-atelier-300/80 bg-atelier-100/70 backdrop-blur-sm rounded-full mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-champagne-500 animate-ping" />
             <span className="text-[11px] uppercase tracking-widest text-atelier-700 font-medium">
-              NIFT Fashion Design Graduate Project • Exhibition Showcase
+              Haute Couture Virtual Dressing Room • SS'26 Editorial
             </span>
           </div>
         </div>
@@ -37,7 +37,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-base sm:text-lg text-atelier-700 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed mb-8">
-              Explore an haute couture collection developed at the National Institute of Fashion Technology. 
+              Explore an haute couture collection developed by our international atelier. 
               Upload your photograph and experience state-of-the-art AI neural virtual try-on that realistically maps 
               garment drape, textile weight, and silhouettes directly to your body.
             </p>
@@ -79,7 +79,7 @@ export default function Hero() {
                 <p className="text-[11px] uppercase tracking-wider text-atelier-500 font-medium">Virtual Try-On</p>
               </div>
               <div>
-                <p className="font-serif text-2xl font-light text-atelier-950">NIFT '26</p>
+                <p className="font-serif text-2xl font-light text-atelier-950">SS'26</p>
                 <p className="text-[11px] uppercase tracking-wider text-atelier-500 font-medium">Curated Wardrobe</p>
               </div>
             </div>
@@ -135,8 +135,8 @@ export default function Hero() {
 
               {/* Floating Monogram Stamp */}
               <div className="absolute -top-4 -right-4 z-20 w-16 h-16 rounded-full bg-atelier-950 text-white flex flex-col items-center justify-center shadow-lg border border-atelier-800">
-                <span className="text-[9px] uppercase tracking-widest text-champagne-400 font-bold">NIFT</span>
-                <span className="text-[10px] font-serif italic text-white/80">Thesis</span>
+                <span className="text-[9px] uppercase tracking-widest text-champagne-400 font-bold">PARIS</span>
+                <span className="text-[10px] font-serif italic text-white/80">Atelier</span>
               </div>
             </div>
           </div>

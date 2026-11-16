@@ -34,7 +34,7 @@ export default function OutfitsPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-atelier-200/90 pb-8 mb-10 gap-6">
           <div>
             <div className="flex items-center space-x-2 text-[10px] uppercase tracking-atelier text-champagne-600 font-semibold mb-2">
-              <span>NIFT Wardrobe Repository</span>
+              <span>Maison Wardrobe Repository</span>
               <span>•</span>
               <span>{outfits.length} Couture Silhouettes</span>
             </div>
@@ -42,7 +42,7 @@ export default function OutfitsPage() {
               Wardrobe & Collections
             </h1>
             <p className="text-xs sm:text-sm text-atelier-600 max-w-xl font-light mt-2 leading-relaxed">
-              Explore each curated piece designed for the NIFT graduation thesis. 
+              Explore each curated piece designed for the seasonal haute couture showcase. 
               Every outfit features 6–7 high-resolution angles documenting drape, fabric structure, and silhouette.
             </p>
           </div>

@@ -126,7 +126,7 @@ export default function OutfitModal() {
               </h2>
 
               <p className="text-xs uppercase tracking-widest text-champagne-600 font-medium mb-5">
-                Designer: {activeModalOutfit.designer || 'Atelier NIFT'}
+                Designer: {activeModalOutfit.designer || 'Atelier Couture'}
               </p>
 
               {/* Description */}

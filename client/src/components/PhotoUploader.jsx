@@ -176,12 +176,12 @@ export default function PhotoUploader() {
         </div>
       )}
 
-      {/* Quick Test Editorial Models (Convenient for NIFT Exhibition Showcases!) */}
+      {/* Quick Test Editorial Models */}
       {sampleModels && sampleModels.length > 0 && (
         <div className="pt-2">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[10px] uppercase tracking-widest text-atelier-500 font-bold">
-              Or Select an Exhibition Test Model (1-Click)
+              Or Select an Editorial Studio Model (1-Click)
             </span>
             <span className="text-[10px] text-atelier-400 font-mono">Quick Demo</span>
           </div>

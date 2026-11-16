@@ -127,7 +127,7 @@ export const outfitStore = {
       name: data.name,
       category: data.category || 'Contemporary',
       price: data.price || 'Atelier Collection',
-      designer: data.designer || 'NIFT Fashion Atelier',
+      designer: data.designer || 'Maison De L\'Atelier',
       description: data.description || '',
       fabric: data.fabric || 'Textile Blend',
       silhouette: data.silhouette || 'Editorial Silhouette',

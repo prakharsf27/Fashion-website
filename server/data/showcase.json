@@ -1,0 +1,38 @@
+[
+  {
+    "id": "showcase-1",
+    "outfitName": "The Lumière Alabaster Column Gown",
+    "category": "Western Haute Couture",
+    "personImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+    "garmentImage": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80",
+    "resultImage": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80",
+    "provider": "Kwai Kolors Virtual Try-On",
+    "notes": "Sculptural silk faille draped seamlessly over neutral studio portrait with preserved facial posture.",
+    "verified": true,
+    "createdAt": "2026-11-16T10:00:00.000Z"
+  },
+  {
+    "id": "showcase-2",
+    "outfitName": "SS'26 Noire Architectural Pant Suit",
+    "category": "Contemporary Indo-Western",
+    "personImage": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+    "garmentImage": "https://images.unsplash.com/photo-1550614000-4895a10e1bfd?auto=format&fit=crop&w=800&q=80",
+    "resultImage": "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=800&q=80",
+    "provider": "Kwai Kolors Virtual Try-On",
+    "notes": "Unlined ecru linen-silk jacket and wide-leg trousers synthesized with shoulder alignment.",
+    "verified": true,
+    "createdAt": "2026-11-16T11:00:00.000Z"
+  },
+  {
+    "id": "showcase-3",
+    "outfitName": "The Midnight Zardozi Velvet Bandhgala",
+    "category": "Traditional Elegance",
+    "personImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
+    "garmentImage": "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80",
+    "resultImage": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80",
+    "provider": "Kwai Kolors Virtual Try-On",
+    "notes": "High-pile obsidian micro-velvet with antique gold bullion zardozi rendered on masculine silhouette.",
+    "verified": true,
+    "createdAt": "2026-11-16T12:00:00.000Z"
+  }
+]

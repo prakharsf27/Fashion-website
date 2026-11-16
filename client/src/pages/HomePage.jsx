@@ -2,6 +2,7 @@ import React from 'react';
 import { Sparkles, ArrowRight, Layers, Compass, Scissors, Award, Wand2 } from 'lucide-react';
 import Hero from '../components/Hero';
 import OutfitCard from '../components/OutfitCard';
+import KolorsShowcase from '../components/KolorsShowcase';
 import { useTryOn } from '../context/TryOnContext';
 
 export default function HomePage() {
@@ -79,7 +80,7 @@ export default function HomePage() {
               How Virtual Try-On Reimagines Fashion Fitting
             </h2>
             <p className="text-sm text-atelier-600 font-light leading-relaxed">
-              Developed as a NIFT design thesis, this platform synthesizes computer vision with garment draping algorithms 
+              Developed for our digital atelier, this platform synthesizes computer vision with garment draping algorithms 
               to provide a photorealistic representation of scale, fall, and silhouette.
             </p>
           </div>
@@ -163,6 +164,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Kwai Kolors Virtual Try-On 3-Result Showcase */}
+      <KolorsShowcase />
+
       {/* Editorial Lookbook Banner (NOIRÉ & LUMIÈRE moodboard) */}
       <section className="py-20 bg-atelier-900 text-ivory-50 overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -170,7 +174,7 @@ export default function HomePage() {
             
             <div className="lg:col-span-6">
               <span className="text-[11px] uppercase tracking-atelier text-champagne-300 font-semibold block mb-2">
-                NIFT Design Philosophy
+                Atelier Design Philosophy
               </span>
               <h2 className="font-serif text-3xl sm:text-5xl font-light text-white leading-tight mb-6">
                 Where Sartorial Craft Meets Generative Intelligence
@@ -189,7 +193,7 @@ export default function HomePage() {
                   }}
                   className="px-6 py-3 border border-champagne-400/60 text-champagne-200 text-xs uppercase tracking-widest font-medium hover:bg-champagne-400 hover:text-atelier-950 transition-colors"
                 >
-                  Read Exhibition Thesis
+                  Read Atelier Philosophy
                 </button>
                 <button
                   onClick={() => {

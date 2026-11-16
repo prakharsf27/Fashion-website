@@ -1,12 +1,29 @@
-# THE FIT ROOM — Atelier Virtual Try-On
+# THE FIT ROOM — Luxury Fashion Virtual Try-On
 > *Discover your style. Visualise your look.*  
-> **Fashion Design Project • National Institute of Fashion Technology (NIFT)**
+> **Haute Couture Digital Atelier • Powered by Kwai Kolors Virtual Try-On**
 
 ---
 
 ## Overview
 
-**THE FIT ROOM** is an interactive, responsive fashion-tech platform designed for the NIFT graduate exhibition showcase. Designed at the intersection of a luxury editorial magazine (inspired by *LUMIÈRE*) and a minimalist fashion lookbook (inspired by *NOIRÉ SS'26*), the application allows users to explore curated haute couture collections, upload their own photograph, select garments, and visualize how they look using neural AI virtual try-on technology.
+**THE FIT ROOM** is a premium, responsive fashion-tech platform combining a luxury editorial magazine aesthetic (inspired by *LUMIÈRE*) with an interactive digital dressing room (inspired by *NOIRÉ SS'26*). The application allows users to explore curated haute couture collections, upload their own photograph, select garments, and visualize how they look using neural AI virtual try-on technology powered by Kwai Kolors.
+
+---
+
+## Kwai Kolors Virtual Try-On Workflow
+
+The platform integrates a manual handoff workflow with the official **Kwai Kolors Virtual Try-On Hugging Face Space**:
+- **Official Space**: `https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On`
+- **User Flow**:
+  1. Upload person portrait.
+  2. Select an outfit from the collection.
+  3. Download the Person Photo and Garment Reference.
+  4. Launch the official Kolors Space in a new tab.
+  5. Upload both assets into Kolors and generate the virtual try-on.
+  6. Return and upload the generated Kolors result.
+  7. View the 3-image comparison (Person, Garment Reference, Kolors Result) with an interactive before/after split slider.
+- **Provider Architecture**: Encapsulated within `KolorsProvider` (ready for future official API endpoints without changing the frontend).
+- **Showcase Archive**: Curated, admin-managed showcase entries exhibiting genuine Kolors results.
 
 ---
 
@@ -17,97 +34,46 @@
 - **Typography**: Editorial display serif (*Cormorant Garamond*, *Italiana*) paired with modern sans-serif (*Plus Jakarta Sans*).
 - **Aesthetic**: Generous whitespace, refined micro-borders, blur backdrops, smooth transitions, and high-fashion photography.
 
-### 2. Editorial Homepage
-- High-fashion hero section matching the *LUMIÈRE* editorial reference.
-- Main statement: *"Your Style, Your Way."*
-- Prominent "Try Your Look" and "Explore Collection" CTAs.
-- Curated SS'26 featured capsule grid with quick-view and direct try-on triggers.
-- 3-step interactive virtual atelier walkthrough.
-
-### 3. Wardrobe & Collections (6–7 Photos per Outfit)
+### 2. Wardrobe & Collections (6–7 Photos per Outfit)
 - Complete wardrobe repository across multiple categories:
   - Western Haute Couture
   - Contemporary Indo-Western
-  - Traditional Elegance (Indian Couture)
+  - Traditional Elegance
   - Indo-Western Fusion
   - Casual Luxe & Resortwear
-- **6–7 High-Resolution Photographs per Outfit**:
-  - Full-length silhouette
-  - Fabric & weave micro-shots
-  - Draping and motion angles
-  - Neckline & embroidery close-ups
-  - Back construction
-  - Styled runway looks
-- Category filter pills, instant search, and photo count indicators.
+- **6–7 High-Resolution Photographs per Outfit**: Full-length silhouette, fabric micro-shots, draping angles, neckline close-ups, back construction, and styled runway looks.
 - Interactive detailed modal and dedicated outfit view with active thumbnail switcher.
 
-### 4. Collection Owner / Admin Management
-- Add new garments to the wardrobe without editing any code.
-- Fields: Outfit Name, Category, Description, Fabrication, Silhouette, Color, Season.
-- Multi-image uploader supporting 6–7 photography angles with live previews and delete options.
-- Persistent storage on the server (`server/data/outfits.json` and MongoDB).
-- View, inspect, and delete existing outfits.
+### 3. Collection Owner / Admin Management
+- Add new garments to the wardrobe without editing code.
+- Multi-image uploader supporting 6–7 photography angles with live previews and reordering.
+- Dedicated Kolors Showcase management tab for genuine results.
 
-### 5. Interactive Virtual Try-On Room
-- **Section A (Upload Portrait)**:
-  - Drag-and-drop or browse files (JPG, PNG, WebP up to 20MB).
-  - Live preview with change/remove options.
-  - Fashion styling guidelines alert for optimal posture and lighting.
-  - One-click sample editorial models (Aria, Dev, Maya, Kabir) for rapid exhibition demonstration.
-- **Section B (Select Garment)**:
-  - Horizontal scrollable wardrobe gallery with category tabs.
-  - Distinct active selection indicator with luxury gold ring and check badge.
-  - Quick link to inspect 6–7 angles before draping.
-- **Multi-Stage Couture Loading Animation**:
-  - *"Analyzing silhouette posture & lighting contours..."*
-  - *"Extracting garment drape & volumetric fabric texture maps..."*
-  - *"Synthesizing neural fitting & micro-crease tension..."*
-  - *"Rendering high-resolution editorial portrait..."*
-
-### 6. Results Page & Draggable Comparison Slider
-- Interactive Before/After split comparison slider with draggable knob.
-- Toggle between Interactive Slider and Side-by-Side Dual View.
-- Technical fitting metrics:
-  - Garment Drape Fidelity (98.4%)
-  - Identity & Pose Preservation (99.1%)
-  - Ambient Lighting Alignment
-- Curated NIFT stylist notes and recommendations.
-- **Download High-Res Lookbook**: Generates an editorial portrait with NIFT branding and styling metadata.
-
-### 7. Dual-Mode AI Backend Architecture
-- Dedicated `/api/try-on/process` endpoint.
-- Secure environment configuration via `server/.env`.
-- Supports live external AI services (Gemini 2.5 / IDM-VTON) when API keys are configured.
-- Built-in photorealistic Atelier Demo Engine for 100% dependable exhibition booth demonstrations without consuming paid quotas.
+### 4. Interactive Virtual Try-On Room & Results
+- **Section A**: Portrait photo uploader + curated studio test models.
+- **Section B**: Garment selection with multi-angle preview.
+- **Kolors Handoff Studio**: Download buttons for both assets, link to official Kolors Space, and upload zone for generated results.
+- **Triptych Results View**: Displays Original Person Photo, Garment Reference, and Kolors Result side-by-side with an interactive before/after split slider.
 
 ---
 
 ## Technical Architecture
 
 - **Frontend**: React 18, Vite, Tailwind CSS, Lucide React Icons, HTML5 Canvas Lookbook Generator.
-- **Backend**: Node.js, Express, Multer (multipart image processing), Mongoose / MongoDB with automatic high-speed persistent JSON fallback.
-- **Proxy**: Vite dev proxy seamlessly forwarding `/api` and `/uploads` to Express.
+- **Backend**: Node.js, Express, Multer, Persistent JSON Store & MongoDB support.
+- **Multi-Service Deployment**: Configured for Vercel with unified rewrites.
 
 ---
 
 ## Quick Start
 
-### 1. Install Dependencies
 ```bash
+# Install dependencies
 npm run install-all
-```
 
-### 2. Run Both Server & Client Concurrently
-```bash
+# Start both backend and frontend concurrently
 npm run dev
 ```
 
-- **Frontend**: `http://localhost:5174` (or `5173`)
+- **Frontend**: `http://localhost:5174`
 - **Backend API**: `http://localhost:5001`
-- **Health Check**: `http://localhost:5001/api/health`
-
----
-
-## Project Credits
-**NIFT Fashion Design Graduate Project & Thesis**  
-*National Institute of Fashion Technology*

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Sparkles, Check, ChevronRight, Layers, Info, ShieldCheck, Key, Settings2 } from 'lucide-react';
+import { Sparkles, Check, ChevronRight, Layers, Info, ShieldCheck, Key, Settings2, ExternalLink } from 'lucide-react';
 import PhotoUploader from '../components/PhotoUploader';
+import KolorsHandoff from '../components/KolorsHandoff';
+import KolorsShowcase from '../components/KolorsShowcase';
 import { useTryOn } from '../context/TryOnContext';
+import { KolorsProvider } from '../services/KolorsProvider';
 
 export default function TryOnPage() {
   const {
@@ -18,7 +21,6 @@ export default function TryOnPage() {
 
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [showApiSettings, setShowApiSettings] = useState(false);
-  const [customKey, setCustomKey] = useState('');
 
   const categories = ['All', 'Western Haute Couture', 'Contemporary Indo-Western', 'Traditional Elegance', 'Indo-Western', 'Casual Luxe'];
 
@@ -37,7 +39,6 @@ export default function TryOnPage() {
       {isProcessing && (
         <div className="fixed inset-0 z-50 bg-atelier-950/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-fade-in text-white">
           <div className="relative mb-8">
-            {/* Elegant double pulsing rings */}
             <div className="w-24 h-24 rounded-full border-2 border-champagne-400/30 animate-ping absolute inset-0" />
             <div className="w-24 h-24 rounded-full border-t-2 border-r-2 border-champagne-300 animate-spin flex items-center justify-center">
               <Sparkles className="w-8 h-8 text-champagne-400 animate-pulse" />
@@ -45,7 +46,7 @@ export default function TryOnPage() {
           </div>
 
           <p className="text-[11px] uppercase tracking-atelier text-champagne-300 font-semibold mb-2">
-            AI Virtual Fitting In Progress
+            Kwai Kolors Virtual Try-On In Progress
           </p>
 
           <h2 className="font-serif text-3xl sm:text-4xl text-ivory-50 font-light mb-3">
@@ -56,13 +57,12 @@ export default function TryOnPage() {
             {processingStage || 'Analyzing silhouette posture & lighting contours...'}
           </p>
 
-          {/* Progress bar */}
           <div className="w-64 h-1 bg-atelier-800 rounded-full overflow-hidden">
             <div className="h-full bg-champagne-400 animate-[pulse_1.5s_ease-in-out_infinite] w-full" />
           </div>
 
           <p className="text-[10px] text-atelier-500 font-mono mt-6 uppercase tracking-wider">
-            NIFT Neural Diffusion Try-On Pipeline • High-Fidelity Draping
+            Kwai Kolors Neural Diffusion Pipeline • High-Fidelity Draping
           </p>
         </div>
       )}
@@ -76,51 +76,58 @@ export default function TryOnPage() {
               <div className="flex items-center space-x-2 text-[10px] uppercase tracking-atelier text-champagne-600 font-semibold mb-2">
                 <span>The Interactive Dressing Room</span>
                 <span>•</span>
-                <span>AI Fitting Atelier</span>
+                <span>Powered by Kwai Kolors</span>
               </div>
               <h1 className="font-serif text-4xl sm:text-6xl text-atelier-950 font-light tracking-tight">
-                Virtual Try-On
+                Virtual Try-On Studio
               </h1>
               <p className="text-xs sm:text-sm text-atelier-600 font-light mt-1 max-w-2xl leading-relaxed">
-                Upload your photograph, choose an outfit from the collection, and click 
-                <strong className="text-atelier-900 font-medium"> "Visualise My Look"</strong> to generate a photorealistic preview.
+                Upload your portrait, select a haute couture garment from the wardrobe, and launch the 
+                <strong className="text-atelier-900 font-medium"> official Kwai Kolors Virtual Try-On</strong> workflow.
               </p>
             </div>
 
             {/* AI Status Badge & Settings Toggle */}
             <div className="flex items-center space-x-3">
-              <div className="px-3.5 py-1.5 bg-atelier-100 border border-atelier-300 text-[11px] text-atelier-800 font-mono flex items-center space-x-2">
+              <a
+                href={KolorsProvider.spaceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-1.5 bg-atelier-100 hover:bg-atelier-200 border border-atelier-300 text-[11px] text-atelier-800 font-mono flex items-center space-x-2 transition-colors"
+              >
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span className="capitalize">{aiStatus.provider || 'Atelier Neural Engine'}</span>
-              </div>
+                <span>Kwai Kolors Space</span>
+                <ExternalLink className="w-3 h-3 text-atelier-500" />
+              </a>
               
               <button
                 onClick={() => setShowApiSettings(!showApiSettings)}
                 className="p-2 bg-atelier-100 hover:bg-atelier-200 border border-atelier-300 text-atelier-700 hover:text-atelier-950 transition-colors"
-                title="Configure AI Model / API Key"
+                title="View Kolors Architecture & Provider Info"
               >
                 <Settings2 className="w-4 h-4" />
               </button>
             </div>
           </div>
 
-          {/* Expandable API Settings */}
+          {/* Expandable Architecture & Provider Info */}
           {showApiSettings && (
             <div className="mt-4 p-4 bg-white border border-atelier-300 text-xs shadow-sm max-w-xl animate-fade-in">
               <div className="flex items-center justify-between mb-2">
                 <span className="font-semibold uppercase tracking-wider text-atelier-900 flex items-center space-x-1.5">
                   <Key className="w-3.5 h-3.5 text-champagne-600" />
-                  <span>AI Engine Configuration</span>
+                  <span>Kwai Kolors Provider Architecture</span>
                 </span>
-                <span className="text-[10px] text-atelier-500 font-mono">Backend Secure</span>
+                <span className="text-[10px] text-atelier-500 font-mono">Handoff Mode</span>
               </div>
               <p className="text-atelier-600 font-light mb-3">
-                {aiStatus.message}
+                Because the official public Hugging Face Space disables embedding and direct Gradio API calls, 
+                The Fit Room integrates a manual handoff concierge: you download the prepared person and garment assets, 
+                run inference on the official Space, and upload the generated result.
               </p>
               <div className="text-[11px] bg-atelier-100 p-2.5 border border-atelier-200 text-atelier-700">
-                <strong className="font-medium text-atelier-900">Exhibition Mode:</strong> 
-                The system delivers high-fidelity photorealistic before/after visual try-on results out of the box. 
-                Optionally connect external API keys (Gemini / IDM-VTON) in <code className="bg-white px-1 py-0.5 border">server/.env</code>.
+                <strong className="font-medium text-atelier-900">Future API Ready:</strong> 
+                The frontend uses the <code>KolorsProvider</code> adapter. Once official documented API access is released by Kwai, the backend mode can be toggled without rewriting frontend components.
               </div>
             </div>
           )}
@@ -266,39 +273,34 @@ export default function TryOnPage() {
               )}
             </div>
 
-            {/* Prominent "Visualise My Look" Action Bar */}
-            <div className="mt-8 pt-6 border-t border-atelier-200">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="text-center sm:text-left">
-                  <span className="text-[11px] uppercase tracking-wider text-atelier-500 block">
-                    Readiness: {canProceed ? 'Ready to Synthesize' : 'Awaiting Inputs'}
-                  </span>
-                  <span className="text-xs font-light text-atelier-700">
-                    {!userPhotoPreview && 'Please upload portrait • '}
-                    {!selectedOutfit && 'Please select outfit'}
-                    {canProceed && 'Portrait and garment verified'}
-                  </span>
-                </div>
-
+            {/* Quick Actions Note */}
+            <div className="mt-6 pt-4 border-t border-atelier-200 flex items-center justify-between text-xs text-atelier-500">
+              <span>Readiness: {canProceed ? 'Assets Ready for Kolors AI' : 'Awaiting portrait & outfit'}</span>
+              {canProceed && (
                 <button
                   type="button"
-                  disabled={!canProceed || isProcessing}
                   onClick={executeTryOn}
-                  className={`w-full sm:w-auto px-8 py-4 text-xs uppercase tracking-widest font-semibold flex items-center justify-center space-x-3 transition-all duration-300 shadow-editorial ${
-                    canProceed && !isProcessing
-                      ? 'bg-atelier-950 hover:bg-atelier-800 text-white cursor-pointer hover:shadow-luxury-glow'
-                      : 'bg-atelier-300 text-atelier-500 cursor-not-allowed'
-                  }`}
+                  className="text-[11px] text-atelier-600 hover:text-atelier-950 underline"
                 >
-                  <Sparkles className="w-4 h-4 text-champagne-300" />
-                  <span>Visualise My Look</span>
-                  <ChevronRight className="w-4 h-4" />
+                  Quick Instant Simulation
                 </button>
-              </div>
+              )}
             </div>
 
           </div>
 
+        </div>
+
+        {/* ======================================================== */}
+        {/* KOLORS VIRTUAL TRY-ON HANDOFF STUDIO                     */}
+        {/* ======================================================== */}
+        {canProceed && <KolorsHandoff />}
+
+        {/* ======================================================== */}
+        {/* THREE SHOWCASE RESULTS ARCHIVE                           */}
+        {/* ======================================================== */}
+        <div className="mt-16">
+          <KolorsShowcase />
         </div>
 
       </div>

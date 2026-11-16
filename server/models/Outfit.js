@@ -4,7 +4,7 @@ const outfitSchema = new mongoose.Schema({
   name: { type: String, required: true },
   category: { type: String, required: true },
   price: { type: String, default: 'Atelier Couture' },
-  designer: { type: String, default: 'NIFT Designer Atelier' },
+  designer: { type: String, default: 'Atelier Master Tailor' },
   description: { type: String, required: true },
   fabric: { type: String, default: 'Hand-woven Atelier Textile' },
   silhouette: { type: String, default: 'Tailored Editorial' },

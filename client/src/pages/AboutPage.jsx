@@ -14,7 +14,7 @@ export default function AboutPage() {
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 border border-atelier-300 bg-atelier-100 rounded-full mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-champagne-500"></span>
             <span className="text-[11px] uppercase tracking-widest text-atelier-700 font-medium">
-              NIFT Fashion Design Graduate Thesis & Exhibition
+              Atelier Lumière • Haute Couture & Neural Dressing
             </span>
           </div>
 
@@ -24,9 +24,8 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-sm sm:text-base text-atelier-600 max-w-2xl mx-auto font-light leading-relaxed">
-            A design-tech research initiative at the National Institute of Fashion Technology exploring 
-            how high-fidelity generative draping models bridge traditional Indian haute couture craftsmanship 
-            with interactive digital fashion visualization.
+            An exploration at the intersection of haute couture craftsmanship, sculptural drapery, 
+            and state-of-the-art generative neural models such as Kwai Kolors Virtual Try-On.
           </p>
         </div>
 
@@ -66,7 +65,7 @@ export default function AboutPage() {
               textile memory, and the nuanced tension of handloom weaves.
             </p>
             <p className="text-xs sm:text-sm text-atelier-600 font-light leading-relaxed">
-              At NIFT, our goal was to investigate whether deep neural vision models could respect the physics 
+              At our atelier, our mission is to investigate how deep neural vision models such as Kwai Kolors respect the physics 
               of high-pile velvet, pure mulberry silk faille, and geometric zardozi embroidery without turning 
               the wearer into a digital cartoon.
             </p>

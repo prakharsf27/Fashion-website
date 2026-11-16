@@ -163,7 +163,7 @@ export default function OutfitDetailPage() {
               </h1>
 
               <p className="text-xs uppercase tracking-widest text-champagne-600 font-medium mb-4">
-                Designer: {outfit.designer || 'Atelier NIFT Master Class'}
+                Designer: {outfit.designer || 'Atelier Haute Couture'}
               </p>
 
               <p className="text-xs sm:text-sm text-atelier-600 font-light leading-relaxed mb-6">

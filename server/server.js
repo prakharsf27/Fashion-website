@@ -54,7 +54,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
     project: 'THE FIT ROOM — Atelier Virtual Try-On',
-    institution: 'National Institute of Fashion Technology (NIFT)',
+    institution: 'The Fit Room Atelier Paris / New York',
     uptime: process.uptime(),
     timestamp: new Date().toISOString()
   });
@@ -88,7 +88,7 @@ app.listen(PORT, () => {
   console.log(`=======================================================`);
   console.log(`   THE FIT ROOM — Fashion Atelier Server Running       `);
   console.log(`   URL: http://localhost:${PORT}                      `);
-  console.log(`   NIFT Fashion Tech Virtual Try-On Ready              `);
+  console.log(`   Kwai Kolors Virtual Try-On Atelier Ready           `);
   console.log(`=======================================================`);
 });
 

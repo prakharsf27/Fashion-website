@@ -84,7 +84,7 @@ export default function OutfitCard({ outfit, onSelectForTryOn, onViewDetail }) {
               {outfit.season || 'Atelier Collection'}
             </span>
             <span className="text-[10px] font-mono text-atelier-400">
-              {outfit.designer ? outfit.designer.split(' ')[0] : 'NIFT'}
+              {outfit.designer ? outfit.designer.split(' ')[0] : 'Atelier'}
             </span>
           </div>
 
