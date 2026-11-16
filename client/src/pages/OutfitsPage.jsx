@@ -9,7 +9,7 @@ export default function OutfitsPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Extract categories dynamically
-  const categories = ['All', 'Western Haute Couture', 'Contemporary Indo-Western', 'Traditional Elegance', 'Indo-Western', 'Casual Luxe'];
+  const categories = ['All', ...Array.from(new Set(outfits.map(o => o.category).filter(Boolean)))];
 
   // Filter outfits
   const filteredOutfits = outfits.filter((outfit) => {

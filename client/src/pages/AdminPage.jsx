@@ -50,11 +50,15 @@ export default function AdminPage() {
   const [scSubmitting, setScSubmitting] = useState(false);
 
   const categories = [
+    'Denim & Casual',
+    'Tailored Separates',
+    'Streetwear Luxe',
+    'Casual Luxe',
+    'Evening & Resort',
     'Western Haute Couture',
     'Contemporary Indo-Western',
     'Traditional Elegance',
     'Indo-Western',
-    'Casual Luxe',
     'Resort Luxe',
     'Avant-Garde'
   ];

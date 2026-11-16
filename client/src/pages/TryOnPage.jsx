@@ -22,7 +22,7 @@ export default function TryOnPage() {
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [showApiSettings, setShowApiSettings] = useState(false);
 
-  const categories = ['All', 'Western Haute Couture', 'Contemporary Indo-Western', 'Traditional Elegance', 'Indo-Western', 'Casual Luxe'];
+  const categories = ['All', ...Array.from(new Set(outfits.map(o => o.category).filter(Boolean)))];
 
   const filteredOutfits = outfits.filter(o => 
     categoryFilter === 'All' || 
