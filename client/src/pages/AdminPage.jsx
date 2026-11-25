@@ -50,6 +50,11 @@ export default function AdminPage() {
   const [scSubmitting, setScSubmitting] = useState(false);
 
   const categories = [
+    'Belts & Leather',
+    'Luxury Timepieces',
+    'Footwear & Shoes',
+    'Skirts & Drapes',
+    'Tops & Knitwear',
     'Denim & Casual',
     'Tailored Separates',
     'Streetwear Luxe',

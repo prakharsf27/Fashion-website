@@ -339,6 +339,316 @@ export const initialOutfits = [
       "Japanese Selvedge",
       "Sculptural"
     ]
+  },
+  {
+    "id": "outfit-12",
+    "name": "Sartorial Noir Architectural Leather Belt",
+    "category": "Belts & Leather",
+    "price": "Atelier Leather Goods",
+    "designer": "Maison De L'Atelier Paris",
+    "description": "Handcrafted in Florence from full-grain Italian calfskin leather with hand-painted beveled edges. Accented with a sculptural brushed antique gold buckle inspired by modernist architectural hardware.",
+    "fabric": "100% Full-Grain Italian Calfskin Leather with Solid Brass Hardware",
+    "silhouette": "30mm Width Classic Tailored Belt",
+    "color": "Noir Black & Brushed Antique Gold",
+    "season": "Permanent Atelier Collection",
+    "featured": false,
+    "mainImage": "/garments/garment_12_belt_black_leather.jpg",
+    "images": [
+      "/garments/garment_12_belt_black_leather.jpg",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "tryOnPreview": "/garments/garment_12_belt_black_leather.jpg",
+    "tags": [
+      "Belt",
+      "Leather",
+      "Gold Hardware",
+      "Accessories",
+      "Sartorial"
+    ]
+  },
+  {
+    "id": "outfit-13",
+    "name": "The Sienna Velour Suede Belt",
+    "category": "Belts & Leather",
+    "price": "Atelier Leather Goods",
+    "designer": "Textile Craft Atelier",
+    "description": "Velvety caramel-toned suede crafted with supple French leather lining and contrast tonal saddle stitching. Features a polished silver geometric rectangular buckle designed for tailored trousers and fluid dresses.",
+    "fabric": "Fine French Calf Suede with Natural Nappa Lining",
+    "silhouette": "25mm Slim Tailored Waist Belt",
+    "color": "Warm Caramel Sienna & Polished Silver",
+    "season": "Autumn / Winter 2026",
+    "featured": false,
+    "mainImage": "/garments/garment_13_belt_caramel_suede.jpg",
+    "images": [
+      "/garments/garment_13_belt_caramel_suede.jpg",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "tryOnPreview": "/garments/garment_13_belt_caramel_suede.jpg",
+    "tags": [
+      "Suede Belt",
+      "Caramel",
+      "Silver Buckle",
+      "Minimalist",
+      "Accessories"
+    ]
+  },
+  {
+    "id": "outfit-14",
+    "name": "The Atelier Chrono Alabaster Gold Watch",
+    "category": "Luxury Timepieces",
+    "price": "Haute Horlogerie",
+    "designer": "Atelier Precision Instruments",
+    "description": "A minimalist 38mm ultra-thin dress watch in 18k yellow gold-plated stainless steel. Features a sunray champagne dial with baton indices, sapphire crystal, and an authentic black embossed leather strap.",
+    "fabric": "18k Gold-Plated 316L Stainless Steel with Alligator-Embossed Leather Strap",
+    "silhouette": "38mm Ultra-Thin 6.8mm Dress Profile",
+    "color": "Champagne Gold & Obsidian Leather",
+    "season": "Permanent Atelier Collection",
+    "featured": false,
+    "mainImage": "/garments/garment_14_watch_gold_dress.jpg",
+    "images": [
+      "/garments/garment_14_watch_gold_dress.jpg",
+      "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "tryOnPreview": "/garments/garment_14_watch_gold_dress.jpg",
+    "tags": [
+      "Watch",
+      "Gold Watch",
+      "Horlogerie",
+      "Dress Watch",
+      "Accessories"
+    ]
+  },
+  {
+    "id": "outfit-15",
+    "name": "Modernist Monolith Steel Mesh Chronograph",
+    "category": "Luxury Timepieces",
+    "price": "Haute Horlogerie",
+    "designer": "Subculture Studio",
+    "description": "Brutalist and architectural, featuring a brushed titanium-grey stainless steel monobloc case with monochromatic slate dial. Fitted with an integrated Milanese woven steel mesh bracelet with quick-release magnetic clasp.",
+    "fabric": "Brushed 316L Surgical Stainless Steel & Milanese Woven Mesh",
+    "silhouette": "40mm Architectural Monobloc Silhouette",
+    "color": "Brushed Slate Silver & Titanium",
+    "season": "Urban Capsule 2026",
+    "featured": false,
+    "mainImage": "/garments/garment_15_watch_silver_mesh.jpg",
+    "images": [
+      "/garments/garment_15_watch_silver_mesh.jpg",
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "tryOnPreview": "/garments/garment_15_watch_silver_mesh.jpg",
+    "tags": [
+      "Steel Watch",
+      "Mesh Strap",
+      "Modernist",
+      "Chronograph",
+      "Accessories"
+    ]
+  },
+  {
+    "id": "outfit-16",
+    "name": "The Sculptural Pointed Slingback Mule",
+    "category": "Footwear & Shoes",
+    "price": "Atelier Footwear",
+    "designer": "Maison De L'Atelier Paris",
+    "description": "Dramatic elongated pointed toe meets an architectural 55mm kitten heel. Crafted in glossy black calfskin with an elasticated slingback strap and cushioned leather insole engineered for all-day gallery walks.",
+    "fabric": "Polished Italian Box Calf Leather with Cuoio Leather Sole",
+    "silhouette": "55mm Sculptural Kitten Heel with Pointed Vamp",
+    "color": "Gloss Noir Black",
+    "season": "Permanent Atelier Collection",
+    "featured": true,
+    "mainImage": "/garments/garment_16_shoes_black_mules.jpg",
+    "images": [
+      "/garments/garment_16_shoes_black_mules.jpg",
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "tryOnPreview": "/garments/garment_16_shoes_black_mules.jpg",
+    "tags": [
+      "Shoes",
+      "Mules",
+      "Kitten Heel",
+      "Pointed Toe",
+      "Slingbacks"
+    ]
+  },
+  {
+    "id": "outfit-17",
+    "name": "Alabaster Chunky Lug-Sole Loafer",
+    "category": "Footwear & Shoes",
+    "price": "Atelier Footwear",
+    "designer": "Subculture Studio",
+    "description": "A high-fashion reinvention of the classic collegiate penny loafer in warm ivory calf leather. Engineered with an exaggerated lightweight extruded rubber commando lug sole, raised apron stitching, and padded collar.",
+    "fabric": "Supple Full-Grain Alabaster Calf Leather with Extruded Vibram Sole",
+    "silhouette": "Chunky Lug Sole 45mm Platform Loafer",
+    "color": "Warm Alabaster Ivory & Pitch Black",
+    "season": "Autumn / Winter 2026",
+    "featured": false,
+    "mainImage": "/garments/garment_17_shoes_ivory_loafers.jpg",
+    "images": [
+      "/garments/garment_17_shoes_ivory_loafers.jpg",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1550614000-4895a10e1bfd?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "tryOnPreview": "/garments/garment_17_shoes_ivory_loafers.jpg",
+    "tags": [
+      "Loafers",
+      "Lug Sole",
+      "Platform",
+      "Ivory Leather",
+      "Footwear"
+    ]
+  },
+  {
+    "id": "outfit-18",
+    "name": "Liquid Champagne Silk Satin Bias Midi Skirt",
+    "category": "Skirts & Drapes",
+    "price": "Atelier Ready-to-Wear",
+    "designer": "Maison De L'Atelier Paris",
+    "description": "Pure liquid grace. Bias-cut in 22-momme heavy silk satin that clings smoothly over the hips and flows into a subtle trumpet hem that ripples with every stride. Finished with an invisible elasticated grosgrain waistband.",
+    "fabric": "100% Heavy Mulberry Silk Charmeuse Satin",
+    "silhouette": "High-Waisted Bias-Cut Trumpet Midi",
+    "color": "Liquid Champagne Gold / Warm Honey",
+    "season": "Spring / Summer 2026",
+    "featured": true,
+    "mainImage": "/garments/garment_18_skirt_champagne_silk.jpg",
+    "images": [
+      "/garments/garment_18_skirt_champagne_silk.jpg",
+      "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "tryOnPreview": "/garments/garment_18_skirt_champagne_silk.jpg",
+    "tags": [
+      "Silk Skirt",
+      "Bias Cut",
+      "Champagne Gold",
+      "Midi Skirt",
+      "Drapes"
+    ]
+  },
+  {
+    "id": "outfit-19",
+    "name": "Architectural Pleated Charcoal Wool Skirt",
+    "category": "Skirts & Drapes",
+    "price": "Atelier Tailoring",
+    "designer": "Sartorial Innovation Lab",
+    "description": "Deconstructed suiting transposed into a sculptural midi skirt. Crafted in structured charcoal melange wool gabardine with knife pleating across the front, asymmetric stepped hemline, and side welt pockets.",
+    "fabric": "Super 120s Worsted Wool Gabardine with Cupro Lining",
+    "silhouette": "Asymmetric Stepped Knife-Pleated Midi",
+    "color": "Deep Charcoal Melange / Slate",
+    "season": "Fall / Winter Studio",
+    "featured": false,
+    "mainImage": "/garments/garment_19_skirt_pleated_charcoal.jpg",
+    "images": [
+      "/garments/garment_19_skirt_pleated_charcoal.jpg",
+      "https://images.unsplash.com/photo-1582142306909-195724d33ffc?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "tryOnPreview": "/garments/garment_19_skirt_pleated_charcoal.jpg",
+    "tags": [
+      "Pleated Skirt",
+      "Wool Gabardine",
+      "Asymmetric",
+      "Charcoal",
+      "Tailoring"
+    ]
+  },
+  {
+    "id": "outfit-20",
+    "name": "The Essential Optic White Ribbed Racer Tank",
+    "category": "Tops & Knitwear",
+    "price": "Capsule Essential",
+    "designer": "Textile Craft Atelier",
+    "description": "The definitive luxury wardrobe foundation. Knit from extra-long staple Supima cotton in a fine micro-rib structure with bound scoop neckline, sculpted cutaway armholes, and seamless tubular torso construction.",
+    "fabric": "95% Organic Supima Cotton & 5% Lycra Micro-Rib",
+    "silhouette": "Fitted Racerback High-Scoop Silhouette",
+    "color": "Optic White / Chalk",
+    "season": "Permanent Atelier Collection",
+    "featured": true,
+    "mainImage": "/garments/garment_20_tank_white_ribbed.jpg",
+    "images": [
+      "/garments/garment_20_tank_white_ribbed.jpg",
+      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "tryOnPreview": "/garments/garment_20_tank_white_ribbed.jpg",
+    "tags": [
+      "Tank Top",
+      "Ribbed Tank",
+      "White Top",
+      "Basics",
+      "Supima Cotton"
+    ]
+  },
+  {
+    "id": "outfit-21",
+    "name": "The Asymmetric Draped Espresso One-Shoulder Tank",
+    "category": "Tops & Knitwear",
+    "price": "Atelier Ready-to-Wear",
+    "designer": "Maison De L'Atelier Paris",
+    "description": "Sculptural Grecian draping reimagined for modern evening layering. Features a fluid one-shoulder diagonal neckline, micro-ruching through the left torso, and double-layered fluid modal jersey that contours seamlessly.",
+    "fabric": "Micro-Modal Silk Jersey with Ultra-Soft Peached Finish",
+    "silhouette": "One-Shoulder Asymmetric Draped Silhouette",
+    "color": "Deep Espresso Brown / Dark Cocoa",
+    "season": "Summer / Autumn Atelier",
+    "featured": false,
+    "mainImage": "/garments/garment_21_tank_espresso_draped.jpg",
+    "images": [
+      "/garments/garment_21_tank_espresso_draped.jpg",
+      "https://images.unsplash.com/photo-1518049362265-d5b2a6467637?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1520006403909-838d6b92c22e?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "tryOnPreview": "/garments/garment_21_tank_espresso_draped.jpg",
+    "tags": [
+      "One Shoulder",
+      "Draped Tank",
+      "Espresso",
+      "Silk Jersey",
+      "Tops"
+    ]
   }
 ];
 

@@ -8,8 +8,10 @@ import { useTryOn } from '../context/TryOnContext';
 export default function HomePage() {
   const { outfits, setActiveView, loadingOutfits, openOutfitDetail } = useTryOn();
 
-  // Featured outfits (first 3-4 items)
-  const featuredOutfits = outfits.slice(0, 4);
+  // Featured outfits across categories (up to 8 items)
+  const featuredOutfits = outfits.filter(o => o.featured).length >= 4 
+    ? outfits.filter(o => o.featured).slice(0, 8) 
+    : outfits.slice(0, 8);
 
   return (
     <div className="min-h-screen bg-atelier-50">

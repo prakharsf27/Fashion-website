@@ -214,8 +214,8 @@ export default function TryOnPage() {
                             <Check className="w-3.5 h-3.5 text-champagne-300" />
                           </div>
                         )}
-                        <span className="absolute bottom-2 left-2 px-2 py-0.5 text-[9px] uppercase tracking-wider font-semibold bg-atelier-950/80 text-white backdrop-blur-sm">
-                          {outfit.category.split(' ')[0]}
+                        <span className="absolute bottom-2 left-2 px-2 py-0.5 text-[9px] uppercase tracking-wider font-semibold bg-atelier-950/80 text-white backdrop-blur-sm truncate max-w-[85%]">
+                          {outfit.category.split('&')[0].trim()}
                         </span>
                       </div>
 
