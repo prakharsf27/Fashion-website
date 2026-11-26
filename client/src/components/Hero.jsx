@@ -13,14 +13,14 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Editorial Masthead / Header tag */}
-        <div className="text-center mb-6">
+        {/* <div className="text-center mb-6">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 border border-atelier-300/80 bg-atelier-100/70 backdrop-blur-sm rounded-full mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-champagne-500 animate-ping" />
             <span className="text-[11px] uppercase tracking-widest text-atelier-700 font-medium">
               Haute Couture Virtual Dressing Room • SS'26 Editorial
             </span>
           </div>
-        </div>
+        </div> */}
 
         {/* Hero Grid: Editorial Typography + Editorial Imagery */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
