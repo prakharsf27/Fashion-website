@@ -19,10 +19,10 @@ export default function Hero() {
           <div className="lg:col-span-7 text-center lg:text-left flex flex-col justify-center">
             
             {/* Prominent Eyebrow Badge */}
-            <div className="inline-flex items-center space-x-2.5 px-4 py-2 bg-[#FAF6EE] border border-[#D9C49E] text-[#8C6D31] text-xs sm:text-sm uppercase tracking-[0.25em] font-bold mb-6 shadow-sm self-center lg:self-start">
+            {/* <div className="inline-flex items-center space-x-2.5 px-4 py-2 bg-[#FAF6EE] border border-[#D9C49E] text-[#8C6D31] text-xs sm:text-sm uppercase tracking-[0.25em] font-bold mb-6 shadow-sm self-center lg:self-start">
               <span className="w-2 h-2 rounded-full bg-[#B88E3E] animate-pulse"></span>
               <span>Virtual Dressing Room</span>
-            </div>
+            </div> */}
 
             {/* Substantial, Large Editorial Headline */}
             <h1 className="font-serif text-6xl sm:text-7xl md:text-8xl lg:text-[5.75rem] xl:text-[6.75rem] tracking-tight text-atelier-950 leading-[0.93] mb-8 font-light">
