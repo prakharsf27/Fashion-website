@@ -19,10 +19,10 @@ export default function Hero() {
           <div className="lg:col-span-7 text-center lg:text-left flex flex-col justify-center">
             
             {/* Prominent Eyebrow Badge */}
-            <div className="inline-flex items-center space-x-2.5 px-4 py-2 bg-[#FAF6EE] border border-[#D9C49E] text-[#8C6D31] text-xs uppercase tracking-[0.25em] font-bold mb-6 shadow-sm self-center lg:self-start">
+            {/* <div className="inline-flex items-center space-x-2.5 px-4 py-2 bg-[#FAF6EE] border border-[#D9C49E] text-[#8C6D31] text-xs sm:text-sm uppercase tracking-[0.25em] font-bold mb-6 shadow-sm self-center lg:self-start">
               <span className="w-2 h-2 rounded-full bg-[#B88E3E] animate-pulse"></span>
               <span>Virtual Dressing Room</span>
-            </div>
+            </div> */}
 
             {/* Substantial, Large Editorial Headline */}
             <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.25rem] tracking-tight text-atelier-950 leading-[0.95] mb-8 font-light">
@@ -38,15 +38,15 @@ export default function Hero() {
 
             {/* Clear, Prominent Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
-              <button
+              {/* <button
                 type="button"
                 onClick={() => handleNavigate('tryon')}
-                className="w-full sm:w-auto px-8 py-4 bg-atelier-950 text-white text-xs sm:text-sm uppercase tracking-[0.2em] font-bold hover:bg-[#8C6D31] transition-all flex items-center justify-center space-x-3 shadow-md group cursor-pointer"
+                className="w-full sm:w-auto px-9 py-4 sm:py-5 bg-atelier-950 text-white text-xs sm:text-sm uppercase tracking-[0.2em] font-bold hover:bg-[#8C6D31] transition-all flex items-center justify-center space-x-3 shadow-md group cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-[#E5C989] group-hover:rotate-12 transition-transform" />
                 <span>Try Your Look</span>
                 <ArrowRight className="w-4 h-4 text-atelier-400 group-hover:translate-x-1.5 transition-transform" />
-              </button>
+              </button> */}
 
               <button
                 type="button"

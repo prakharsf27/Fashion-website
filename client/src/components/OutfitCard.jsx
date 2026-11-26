@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Eye, Layers } from 'lucide-react';
+import { Sparkles, Eye } from 'lucide-react';
 import { useTryOn } from '../context/TryOnContext';
 
 export default function OutfitCard({ outfit, onSelectForTryOn, onViewDetail }) {
@@ -23,8 +23,6 @@ export default function OutfitCard({ outfit, onSelectForTryOn, onViewDetail }) {
     }
   };
 
-  const photoCount = outfit.images ? outfit.images.length : 1;
-
   return (
     <div 
       onClick={handleViewClick}
@@ -43,14 +41,6 @@ export default function OutfitCard({ outfit, onSelectForTryOn, onViewDetail }) {
         <div className="absolute top-3 left-3 z-10">
           <span className="px-2.5 py-1 text-[10px] uppercase tracking-widest font-bold bg-white/95 border border-[#D9C49E] text-[#7A5B20] shadow-sm">
             {outfit.category}
-          </span>
-        </div>
-
-        {/* Photos Count Indicator */}
-        <div className="absolute top-3 right-3 z-10">
-          <span className="px-2 py-0.5 text-[9px] uppercase tracking-wider font-semibold bg-white/85 backdrop-blur-md text-atelier-800 flex items-center space-x-1">
-            <Layers className="w-2.5 h-2.5 text-atelier-500" />
-            <span>{photoCount} Views</span>
           </span>
         </div>
 
