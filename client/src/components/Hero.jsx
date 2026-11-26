@@ -121,7 +121,7 @@ export default function Hero() {
               </div>
 
               {/* Floating Floating Accent Card */}
-              <div className="absolute -bottom-6 -left-6 z-20 bg-atelier-50/95 backdrop-blur-md border border-atelier-200/90 p-4 shadow-editorial max-w-[210px] hidden sm:block">
+              {/* <div className="absolute -bottom-6 -left-6 z-20 bg-atelier-50/95 backdrop-blur-md border border-atelier-200/90 p-4 shadow-editorial max-w-[210px] hidden sm:block">
                 <div className="flex items-center space-x-2 mb-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
                   <span className="text-[10px] uppercase tracking-wider font-semibold text-atelier-900">
@@ -131,7 +131,7 @@ export default function Hero() {
                 <p className="text-[11px] text-atelier-600 leading-snug">
                   Upload portrait to drape this garment in real-time.
                 </p>
-              </div>
+              </div> */}
 
               {/* Floating Monogram Stamp */}
               <div className="absolute -top-4 -right-4 z-20 w-16 h-16 rounded-full bg-atelier-950 text-white flex flex-col items-center justify-center shadow-lg border border-atelier-800">
