@@ -34,7 +34,7 @@ export default function Hero() {
 
             {/* Clear, Prominent Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <button
+              {/* <button
                 type="button"
                 onClick={() => handleNavigate('tryon')}
                 className="w-full sm:w-auto px-8 py-4 bg-atelier-950 text-white text-xs uppercase tracking-widest font-semibold hover:bg-atelier-800 transition-all flex items-center justify-center space-x-3 shadow-sm group"
@@ -42,7 +42,7 @@ export default function Hero() {
                 <Sparkles className="w-4 h-4 text-champagne-300 group-hover:rotate-12 transition-transform" />
                 <span>Try Your Look</span>
                 <ArrowRight className="w-4 h-4 text-atelier-400 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </button> */}
 
               <button
                 type="button"

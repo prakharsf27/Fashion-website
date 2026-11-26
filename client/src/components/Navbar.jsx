@@ -66,7 +66,7 @@ export default function Navbar() {
         </nav>
 
         {/* Action Button */}
-        <div className="hidden md:flex items-center">
+        {/* <div className="hidden md:flex items-center">
           <button
             onClick={() => handleNavClick('tryon')}
             className="px-5 py-2.5 bg-atelier-950 text-white text-xs uppercase tracking-widest font-semibold hover:bg-atelier-800 transition-all flex items-center space-x-2 shadow-sm"
@@ -74,7 +74,7 @@ export default function Navbar() {
             <Sparkles className="w-3.5 h-3.5 text-champagne-300" />
             <span>Try Your Look</span>
           </button>
-        </div>
+        </div> */}
 
         {/* Mobile menu button */}
         <div className="flex md:hidden items-center space-x-3">
