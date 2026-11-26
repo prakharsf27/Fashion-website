@@ -60,7 +60,7 @@ export default function OutfitsPage() {
               <span>Add New Outfit</span>
             </button>
 
-            <button
+            {/* <button
               onClick={() => {
                 setActiveView('tryon');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,7 +69,7 @@ export default function OutfitsPage() {
             >
               <Sparkles className="w-3.5 h-3.5 text-champagne-300" />
               <span>Virtual Dressing Room</span>
-            </button>
+            </button> */}
           </div>
         </div>
 

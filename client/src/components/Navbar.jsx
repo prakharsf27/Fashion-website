@@ -69,7 +69,7 @@ export default function Navbar() {
 
         {/* Action Button */}
         <div className="hidden md:flex items-center space-x-4">
-          <button
+          {/* <button
             onClick={() => handleNavClick('tryon')}
             className="group relative inline-flex items-center justify-center px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-white bg-atelier-950 hover:bg-atelier-800 transition-all duration-300 shadow-sm hover:shadow-editorial rounded-none overflow-hidden"
           >
@@ -78,7 +78,7 @@ export default function Navbar() {
               <span>Try Your Look</span>
             </span>
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-0 bg-champagne-600 transition-transform duration-500 ease-out -z-0 opacity-20"></div>
-          </button>
+          </button> */}
         </div>
 
         {/* Mobile menu button */}
