@@ -18,18 +18,16 @@ export default function KolorsShowcase() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
-            <div className="inline-flex items-center space-x-2 text-[10px] uppercase tracking-atelier text-champagne-600 font-bold mb-2">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
-              <span>Genuine Kwai Kolors Inference Showcase</span>
+            <div className="inline-flex items-center space-x-2 text-[10px] uppercase tracking-widest text-atelier-500 font-semibold mb-1">
+              <span>Virtual Try-On Gallery</span>
               <span>•</span>
-              <span>Exact 3 Curated Results</span>
+              <span>Before & After</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-5xl text-atelier-950 font-light">
-              Kolors Virtual Try-On Archive
+              Try-On Results
             </h2>
             <p className="text-xs sm:text-sm text-atelier-600 font-light mt-1 max-w-xl leading-relaxed">
-              Real outputs generated via the official Kwai Kolors Virtual Try-On Space demonstrating 
-              neural fabric warping, silhouette tension, and lighting harmonization.
+              Explore results generated with our virtual styling workflow, comparing source portraits, garment references, and the final fitted look.
             </p>
           </div>
 

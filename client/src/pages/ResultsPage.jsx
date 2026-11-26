@@ -100,7 +100,7 @@ export default function ResultsPage() {
 
         ctx.fillStyle = '#AFA089';
         ctx.font = '14px monospace';
-        ctx.fillText(`THE FIT ROOM • HAUTE COUTURE ATELIER • KWAI KOLORS AI`, margin, height - 75);
+        ctx.fillText(`THE CAMERINO • VIRTUAL DRESSING ROOM • KWAI KOLORS AI`, margin, height - 75);
 
         // Watermark Right
         ctx.textAlign = 'right';

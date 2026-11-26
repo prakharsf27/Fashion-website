@@ -54,8 +54,8 @@ app.use('/api/try-on', tryonRoutes);
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
-    project: 'THE FIT ROOM — Atelier Virtual Try-On',
-    institution: 'The Fit Room Atelier Paris / New York',
+    project: 'THE CAMERINO — Virtual Try-On Studio',
+    institution: 'The Camerino Atelier',
     uptime: process.uptime(),
     timestamp: new Date().toISOString()
   });
@@ -87,7 +87,7 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`=======================================================`);
-  console.log(`   THE FIT ROOM — Fashion Atelier Server Running       `);
+  console.log(`   THE CAMERINO — Fashion Atelier Server Running       `);
   console.log(`   URL: http://localhost:${PORT}                      `);
   console.log(`   Kwai Kolors Virtual Try-On Atelier Ready           `);
   console.log(`=======================================================`);

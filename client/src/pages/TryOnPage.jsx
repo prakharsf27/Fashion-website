@@ -69,68 +69,34 @@ export default function TryOnPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header & Status Indicator */}
-        <div className="border-b border-atelier-200/90 pb-8 mb-10">
+        {/* Header Bar */}
+        <div className="border-b border-atelier-200 pb-6 mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="flex items-center space-x-2 text-[10px] uppercase tracking-atelier text-champagne-600 font-semibold mb-2">
-                <span>The Interactive Dressing Room</span>
+              <div className="flex items-center space-x-2 text-[10px] uppercase tracking-widest text-atelier-500 font-semibold mb-1">
+                <span>Interactive Dressing Room</span>
                 <span>•</span>
-                <span>Powered by Kwai Kolors</span>
+                <span>Virtual Try-On</span>
               </div>
-              <h1 className="font-serif text-4xl sm:text-6xl text-atelier-950 font-light tracking-tight">
+              <h1 className="font-serif text-3xl sm:text-5xl text-atelier-950 font-light tracking-tight">
                 Virtual Try-On Studio
               </h1>
-              <p className="text-xs sm:text-sm text-atelier-600 font-light mt-1 max-w-2xl leading-relaxed">
-                Upload your portrait, select a haute couture garment from the wardrobe, and launch the 
-                <strong className="text-atelier-900 font-medium"> official Kwai Kolors Virtual Try-On</strong> workflow.
+              <p className="text-xs sm:text-sm text-atelier-600 font-light mt-1">
+                Upload your photograph, select any outfit from the collection, and visualize your look.
               </p>
             </div>
 
-            {/* AI Status Badge & Settings Toggle */}
-            <div className="flex items-center space-x-3">
-              <a
-                href={KolorsProvider.spaceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3.5 py-1.5 bg-atelier-100 hover:bg-atelier-200 border border-atelier-300 text-[11px] text-atelier-800 font-mono flex items-center space-x-2 transition-colors"
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>Kwai Kolors Space</span>
-                <ExternalLink className="w-3 h-3 text-atelier-500" />
-              </a>
-              
-              <button
-                onClick={() => setShowApiSettings(!showApiSettings)}
-                className="p-2 bg-atelier-100 hover:bg-atelier-200 border border-atelier-300 text-atelier-700 hover:text-atelier-950 transition-colors"
-                title="View Kolors Architecture & Provider Info"
-              >
-                <Settings2 className="w-4 h-4" />
-              </button>
-            </div>
+            <a
+              href={KolorsProvider.spaceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3.5 py-1.5 bg-white hover:bg-atelier-100 border border-atelier-300 text-[11px] text-atelier-800 font-medium flex items-center space-x-2 transition-colors self-start md:self-auto shadow-sm"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>Kwai Kolors Space</span>
+              <ExternalLink className="w-3 h-3 text-atelier-500" />
+            </a>
           </div>
-
-          {/* Expandable Architecture & Provider Info */}
-          {showApiSettings && (
-            <div className="mt-4 p-4 bg-white border border-atelier-300 text-xs shadow-sm max-w-xl animate-fade-in">
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-semibold uppercase tracking-wider text-atelier-900 flex items-center space-x-1.5">
-                  <Key className="w-3.5 h-3.5 text-champagne-600" />
-                  <span>Kwai Kolors Provider Architecture</span>
-                </span>
-                <span className="text-[10px] text-atelier-500 font-mono">Handoff Mode</span>
-              </div>
-              <p className="text-atelier-600 font-light mb-3">
-                Because the official public Hugging Face Space disables embedding and direct Gradio API calls, 
-                The Fit Room integrates a manual handoff concierge: you download the prepared person and garment assets, 
-                run inference on the official Space, and upload the generated result.
-              </p>
-              <div className="text-[11px] bg-atelier-100 p-2.5 border border-atelier-200 text-atelier-700">
-                <strong className="font-medium text-atelier-900">Future API Ready:</strong> 
-                The frontend uses the <code>KolorsProvider</code> adapter. Once official documented API access is released by Kwai, the backend mode can be toggled without rewriting frontend components.
-              </div>
-            </div>
-          )}
         </div>
 
         {/* 2-Column Core Architecture: Section A (User Photo) + Section B (Outfit Selection) */}

@@ -1,7 +1,7 @@
 {
-  "name": "the-fit-room",
+  "name": "the-camerino",
   "version": "1.0.0",
-  "description": "The Fit Room - Luxury AI Virtual Try-On Fashion Platform with Kwai Kolors Workflow",
+  "description": "The Camerino - Luxury Fashion Virtual Try-On Platform with Kwai Kolors Workflow",
   "scripts": {
     "install-all": "npm install && cd server && npm install && cd ../client && npm install",
     "server": "cd server && npm run dev",

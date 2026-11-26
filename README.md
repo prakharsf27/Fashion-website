@@ -1,12 +1,12 @@
-# THE FIT ROOM — Luxury Fashion Virtual Try-On
+# THE CAMERINO — Luxury Fashion Virtual Try-On
 > *Discover your style. Visualise your look.*  
-> **Haute Couture Digital Atelier • Powered by Kwai Kolors Virtual Try-On**
+> **Digital Atelier • Powered by Kwai Kolors Virtual Try-On**
 
 ---
 
 ## Overview
 
-**THE FIT ROOM** is a premium, responsive fashion-tech platform combining a luxury editorial magazine aesthetic (inspired by *LUMIÈRE*) with an interactive digital dressing room (inspired by *NOIRÉ SS'26*). The application allows users to explore curated haute couture collections, upload their own photograph, select garments, and visualize how they look using neural AI virtual try-on technology powered by Kwai Kolors.
+**THE CAMERINO** is a premium, responsive fashion-tech platform combining a luxury editorial magazine aesthetic with an interactive digital dressing room. The application allows users to explore curated designer collections, upload their own photograph, select garments, and visualize how they look using neural AI virtual try-on technology powered by Kwai Kolors.
 
 ---
 

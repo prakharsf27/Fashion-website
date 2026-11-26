@@ -120,16 +120,16 @@ export default function KolorsHandoff() {
       <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-atelier-200 pb-5 mb-6 gap-4">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="w-2 h-2 rounded-full bg-champagne-500 animate-pulse"></span>
-            <span className="text-[10px] uppercase tracking-atelier text-champagne-600 font-bold">
-              Kwai Kolors Virtual Try-On Handoff Studio
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="text-[10px] uppercase tracking-widest text-atelier-500 font-semibold">
+              Step 03 • Try-On Studio
             </span>
           </div>
           <h3 className="font-serif text-2xl sm:text-3xl text-atelier-950 font-normal mt-1">
-            Prepare Assets & Launch Kolors AI
+            Generate Your Look
           </h3>
           <p className="text-xs text-atelier-600 font-light mt-1">
-            Download your prepared portrait and garment reference, then continue with the official Kolors Space.
+            Download your photo and garment reference, then continue with the official Kolors Space.
           </p>
         </div>
 

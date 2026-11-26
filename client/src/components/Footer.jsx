@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, ArrowUp } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { useTryOn } from '../context/TryOnContext';
 
 export default function Footer() {
@@ -9,112 +9,107 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNavClick = (view) => {
+    setActiveView(view);
+    scrollToTop();
+  };
+
   return (
-    <footer className="bg-atelier-950 text-ivory-50 border-t border-atelier-800 pt-16 pb-12">
+    <footer className="bg-atelier-950 text-white border-t border-atelier-800 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-atelier-800">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-atelier-800">
           
-          {/* Brand & Thesis Statement */}
-          <div className="md:col-span-5">
-            <h3 className="font-serif text-3xl sm:text-4xl uppercase tracking-widest font-light text-white mb-2">
-              The Fit Room
+          {/* Brand Info */}
+          <div className="md:col-span-6">
+            <h3 className="font-serif text-3xl uppercase tracking-widest font-light text-white mb-2">
+              The Camerino
             </h3>
             <p className="font-serif italic text-sm text-champagne-300 mb-4">
               Discover your style. Visualise your look.
             </p>
-            <p className="text-xs text-atelier-400 font-light leading-relaxed max-w-sm mb-6">
-              A high-fashion technology platform bridging haute couture draping, bespoke garment archiving, and interactive neural virtual try-on.
+            <p className="text-xs text-atelier-400 font-light leading-relaxed max-w-md">
+              A modern fashion styling and virtual try-on platform allowing users to explore 
+              designer garments, accessories, and silhouettes, visualized seamlessly on personal photographs.
             </p>
-            <div className="inline-flex items-center space-x-2 text-[11px] text-atelier-300 font-mono">
-              <span className="w-2 h-2 rounded-full bg-champagne-400"></span>
-              <span>Maison Atelier • SS'26 Lookbook Edition</span>
-            </div>
           </div>
 
-          {/* Navigation Links */}
+          {/* Quick Navigation Links */}
           <div className="md:col-span-3">
             <h4 className="text-xs uppercase tracking-widest text-champagne-300 font-semibold mb-4">
-              Navigation
+              Explore
             </h4>
             <ul className="space-y-2.5 text-xs text-atelier-300">
               <li>
                 <button 
-                  onClick={() => { setActiveView('home'); scrollToTop(); }}
+                  onClick={() => handleNavClick('home')}
                   className="hover:text-white transition-colors"
                 >
-                  Home Editorial
+                  Home
                 </button>
               </li>
               <li>
                 <button 
-                  onClick={() => { setActiveView('outfits'); scrollToTop(); }}
+                  onClick={() => handleNavClick('outfits')}
                   className="hover:text-white transition-colors"
                 >
-                  Wardrobe & Collections
+                  Explore Outfits
                 </button>
               </li>
               <li>
                 <button 
-                  onClick={() => { setActiveView('tryon'); scrollToTop(); }}
-                  className="hover:text-white transition-colors flex items-center space-x-1"
+                  onClick={() => handleNavClick('tryon')}
+                  className="hover:text-white transition-colors"
                 >
-                  <Sparkles className="w-3 h-3 text-champagne-400" />
-                  <span>Virtual Try-On Room</span>
+                  Virtual Try-On
                 </button>
               </li>
               <li>
                 <button 
-                  onClick={() => { setActiveView('about'); scrollToTop(); }}
+                  onClick={() => handleNavClick('about')}
                   className="hover:text-white transition-colors"
                 >
-                  Atelier Philosophy
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => { setActiveView('admin'); scrollToTop(); }}
-                  className="hover:text-white transition-colors"
-                >
-                  Atelier Wardrobe Admin
+                  About
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Exhibition Specs & Credits */}
-          <div className="md:col-span-4">
+          {/* Quick Info & Administration */}
+          <div className="md:col-span-3">
             <h4 className="text-xs uppercase tracking-widest text-champagne-300 font-semibold mb-4">
-              Atelier & Technology Credits
+              Platform
             </h4>
-            <div className="space-y-2 text-xs text-atelier-400 font-light leading-relaxed">
-              <p>
-                <strong className="text-atelier-200 font-medium">Maison:</strong> The Fit Room Atelier
-              </p>
-              <p>
-                <strong className="text-atelier-200 font-medium">Virtual Try-On:</strong> Kwai Kolors Neural Diffusion Engine
-              </p>
-              <p>
-                <strong className="text-atelier-200 font-medium">Architecture:</strong> React, Tailwind CSS, Express & Multi-Angle Draping Pipeline
-              </p>
-              <p className="pt-2 text-[11px] text-atelier-500 font-mono">
-                Curated for bespoke styling and digital runway presentation.
-              </p>
-            </div>
+            <ul className="space-y-2.5 text-xs text-atelier-300">
+              <li>
+                <button 
+                  onClick={() => handleNavClick('admin')}
+                  className="hover:text-white transition-colors"
+                >
+                  Wardrobe Management
+                </button>
+              </li>
+              <li className="text-atelier-400">
+                <span>Powered by Kwai Kolors</span>
+              </li>
+              <li className="text-atelier-400">
+                <span>High-Fidelity AI Fitting</span>
+              </li>
+            </ul>
           </div>
 
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-atelier-500 font-light gap-4">
-          <p>© {new Date().getFullYear()} The Fit Room • Luxury Fashion Virtual Try-On. All rights reserved.</p>
+          <p>© 2026 THE CAMERINO. All rights reserved.</p>
           
           <button
             onClick={scrollToTop}
-            className="flex items-center space-x-1.5 text-atelier-400 hover:text-white transition-colors text-xs uppercase tracking-wider"
+            className="flex items-center space-x-1.5 text-atelier-400 hover:text-white transition-colors"
           >
-            <span>Back to Top</span>
+            <span>Back to top</span>
             <ArrowUp className="w-3.5 h-3.5" />
           </button>
         </div>

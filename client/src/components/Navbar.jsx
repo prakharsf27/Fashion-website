@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Menu, X, ArrowUpRight, Shirt, Compass, Info, SlidersHorizontal } from 'lucide-react';
+import { Sparkles, Menu, X, ArrowRight } from 'lucide-react';
 import { useTryOn } from '../context/TryOnContext';
 
 export default function Navbar() {
@@ -10,8 +10,8 @@ export default function Navbar() {
     { id: 'home', label: 'Home' },
     { id: 'outfits', label: 'Explore Outfits' },
     { id: 'tryon', label: 'Virtual Try-On', highlight: true },
-    { id: 'about', label: 'Atelier Philosophy' },
-    { id: 'admin', label: 'Atelier Admin' },
+    { id: 'about', label: 'About' },
+    { id: 'admin', label: 'Admin' },
   ];
 
   const handleNavClick = (id) => {
@@ -21,7 +21,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-atelier-50/90 backdrop-blur-md border-b border-atelier-200/60 transition-all duration-300">
+    <header className="sticky top-0 z-40 bg-atelier-50/95 backdrop-blur-md border-b border-atelier-200/80 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
         {/* Brand Logo */}
@@ -29,13 +29,11 @@ export default function Navbar() {
           onClick={() => handleNavClick('home')}
           className="cursor-pointer group flex flex-col justify-center"
         >
-          <div className="flex items-center space-x-2">
-            <span className="font-serif text-2xl sm:text-3xl tracking-widest text-atelier-950 font-light group-hover:text-atelier-700 transition-colors uppercase">
-              The Fit Room
-            </span>
-          </div>
-          <span className="text-[10px] tracking-atelier uppercase text-atelier-500 font-medium">
-            Atelier Virtual Try-On • Paris / New York
+          <span className="font-serif text-2xl sm:text-3xl tracking-widest text-atelier-950 font-light group-hover:text-champagne-700 transition-colors uppercase">
+            The Camerino
+          </span>
+          <span className="text-[10px] tracking-widest uppercase text-atelier-500 font-medium -mt-0.5">
+            Virtual Dressing Room
           </span>
         </div>
 
@@ -47,7 +45,7 @@ export default function Navbar() {
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`text-xs uppercase tracking-widest transition-all duration-200 py-2 relative font-medium ${
+                className={`text-xs uppercase tracking-widest transition-colors py-1 relative font-medium ${
                   isActive 
                     ? 'text-atelier-950 font-semibold' 
                     : 'text-atelier-600 hover:text-atelier-950'
@@ -60,7 +58,7 @@ export default function Navbar() {
                   <span>{item.label}</span>
                 </span>
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-atelier-950"></span>
+                  <span className="absolute -bottom-1 left-0 w-full h-[1.5px] bg-atelier-950"></span>
                 )}
               </button>
             );
@@ -68,24 +66,21 @@ export default function Navbar() {
         </nav>
 
         {/* Action Button */}
-        <div className="hidden md:flex items-center space-x-4">
-          {/* <button
+        <div className="hidden md:flex items-center">
+          <button
             onClick={() => handleNavClick('tryon')}
-            className="group relative inline-flex items-center justify-center px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-white bg-atelier-950 hover:bg-atelier-800 transition-all duration-300 shadow-sm hover:shadow-editorial rounded-none overflow-hidden"
+            className="px-5 py-2.5 bg-atelier-950 text-white text-xs uppercase tracking-widest font-semibold hover:bg-atelier-800 transition-all flex items-center space-x-2 shadow-sm"
           >
-            <span className="relative z-10 flex items-center space-x-2">
-              <Sparkles className="w-3.5 h-3.5 text-champagne-300" />
-              <span>Try Your Look</span>
-            </span>
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-0 bg-champagne-600 transition-transform duration-500 ease-out -z-0 opacity-20"></div>
-          </button> */}
+            <Sparkles className="w-3.5 h-3.5 text-champagne-300" />
+            <span>Try Your Look</span>
+          </button>
         </div>
 
         {/* Mobile menu button */}
         <div className="flex md:hidden items-center space-x-3">
           <button
             onClick={() => handleNavClick('tryon')}
-            className="p-2 text-xs bg-atelier-950 text-white font-medium tracking-wider uppercase px-3"
+            className="px-3.5 py-1.5 bg-atelier-950 text-white text-xs font-semibold uppercase tracking-wider"
           >
             Try-On
           </button>
@@ -101,21 +96,20 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-atelier-100 border-b border-atelier-300/80 px-6 py-6 animate-fade-in shadow-xl">
-          <div className="flex flex-col space-y-4">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={`text-left text-sm uppercase tracking-widest py-2 flex items-center justify-between border-b border-atelier-200 ${
-                  activeView === item.id ? 'text-atelier-950 font-bold' : 'text-atelier-600'
-                }`}
-              >
-                <span>{item.label}</span>
-                <ArrowUpRight className="w-4 h-4 opacity-50" />
-              </button>
-            ))}
-          </div>
+        <div className="md:hidden bg-white border-b border-atelier-200 px-6 py-5 space-y-4 animate-fade-in shadow-lg">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => handleNavClick(item.id)}
+              className={`block w-full text-left text-xs uppercase tracking-widest py-2 ${
+                activeView === item.id 
+                  ? 'text-atelier-950 font-bold' 
+                  : 'text-atelier-600 hover:text-atelier-950'
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
       )}
     </header>
