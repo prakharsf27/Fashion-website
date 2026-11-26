@@ -58,7 +58,7 @@ router.get('/status', (req, res) => {
 // POST /api/try-on/kolors/session - Prepare a new Try-On Session
 router.post('/kolors/session', upload.single('userPhoto'), async (req, res) => {
   try {
-    const { outfitId, userPhotoUrl } = req.body;
+    const { outfitId, userPhotoUrl, ensembleIds } = req.body;
 
     let finalUserPhoto = '';
     if (req.file) {
@@ -90,12 +90,38 @@ router.post('/kolors/session', upload.single('userPhoto'), async (req, res) => {
     // Reference garment image (primary photograph or detailed front angle)
     const garmentImage = outfit.mainImage || (outfit.images && outfit.images[0]);
 
+    // Multi-garment ensemble resolution
+    let ensemble = [];
+    let garmentImages = [];
+    if (ensembleIds) {
+      try {
+        const parsedIds = typeof ensembleIds === 'string' ? JSON.parse(ensembleIds) : ensembleIds;
+        if (Array.isArray(parsedIds)) {
+          for (const id of parsedIds) {
+            const item = await outfitStore.getById(id);
+            if (item) {
+              ensemble.push(item);
+              garmentImages.push(item.mainImage || (item.images && item.images[0]));
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Could not parse ensembleIds:', e);
+      }
+    }
+    if (ensemble.length === 0) {
+      ensemble.push(outfit);
+      garmentImages.push(garmentImage);
+    }
+
     const session = await KolorsProvider.prepareSession({
       userPhoto: finalUserPhoto,
       outfitId: outfit.id,
       garmentImage,
       outfitName: outfit.name,
-      category: outfit.category
+      category: outfit.category,
+      ensemble,
+      garmentImages
     });
 
     res.status(201).json({
@@ -103,7 +129,8 @@ router.post('/kolors/session', upload.single('userPhoto'), async (req, res) => {
       message: 'Kolors Virtual Try-On session prepared.',
       data: {
         ...session,
-        outfit
+        outfit,
+        ensemble
       }
     });
   } catch (err) {

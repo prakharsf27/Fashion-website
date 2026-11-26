@@ -5,7 +5,7 @@
  * and 'api' (direct official API) without altering frontend components.
  */
 
-const STORAGE_KEY = 'the_fit_room_kolors_session';
+const STORAGE_KEY = 'the_camerino_kolors_session';
 const OFFICIAL_SPACE_URL = 'https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On';
 
 export const KolorsProvider = {
@@ -16,9 +16,13 @@ export const KolorsProvider = {
   /**
    * Prepares and persists a try-on session.
    */
-  async prepareSession({ userPhotoFile, userPhotoPreview, outfit }) {
+  async prepareSession({ userPhotoFile, userPhotoPreview, outfit, outfits = [] }) {
     const formData = new FormData();
     formData.append('outfitId', outfit.id);
+
+    if (outfits && outfits.length > 0) {
+      formData.append('ensembleIds', JSON.stringify(outfits.map(o => o.id)));
+    }
 
     if (userPhotoFile instanceof File) {
       formData.append('userPhoto', userPhotoFile);

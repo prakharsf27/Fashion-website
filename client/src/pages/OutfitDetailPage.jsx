@@ -150,7 +150,7 @@ export default function OutfitDetailPage() {
           <div className="lg:col-span-5 bg-white p-6 sm:p-8 border border-atelier-200 shadow-sm space-y-6">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 bg-atelier-100 text-atelier-800 font-medium">
+                <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 bg-[#FAF6EE] border border-[#D9C49E] text-[#7A5B20] font-bold shadow-xs">
                   {outfit.category}
                 </span>
                 <span className="text-xs font-mono text-atelier-500">

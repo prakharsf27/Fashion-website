@@ -7,6 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
+        ivory: {
+          50: '#FAF8F5',
+          100: '#F5F2EB',
+          200: '#ECE6DC',
+          DEFAULT: '#FAF8F5',
+        },
         atelier: {
           50: '#FAF8F5',
           100: '#F5F2EB',

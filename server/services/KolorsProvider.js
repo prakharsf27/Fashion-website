@@ -40,7 +40,7 @@ export const KolorsProvider = {
    * Initializes a new Virtual Try-On handoff session.
    */
   async prepareSession(payload) {
-    const { userPhoto, outfitId, garmentImage, outfitName, category } = payload;
+    const { userPhoto, outfitId, garmentImage, outfitName, category, ensemble = [], garmentImages = [] } = payload;
     
     const sessionId = 'session-' + Date.now() + '-' + Math.round(Math.random() * 1e6);
     const session = {
@@ -50,6 +50,8 @@ export const KolorsProvider = {
       garmentImage,
       outfitName: outfitName || 'Selected Haute Couture Garment',
       category: category || 'Haute Couture',
+      ensemble: ensemble.length > 0 ? ensemble : null,
+      garmentImages: garmentImages.length > 0 ? garmentImages : [garmentImage],
       resultImage: null,
       provider: this.providerName,
       spaceUrl: this.spaceUrl,

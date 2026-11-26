@@ -39,9 +39,9 @@ export default function OutfitCard({ outfit, onSelectForTryOn, onViewDetail }) {
           loading="lazy"
         />
 
-        {/* Category Pill Tag */}
+        {/* Category Pill Tag - Highly Visible & Golden */}
         <div className="absolute top-3 left-3 z-10">
-          <span className="px-2.5 py-1 text-[10px] uppercase tracking-widest font-medium bg-atelier-950/80 backdrop-blur-md text-ivory-50 rounded-none">
+          <span className="px-2.5 py-1 text-[10px] uppercase tracking-widest font-bold bg-white/95 border border-[#D9C49E] text-[#7A5B20] shadow-sm">
             {outfit.category}
           </span>
         </div>
@@ -88,11 +88,11 @@ export default function OutfitCard({ outfit, onSelectForTryOn, onViewDetail }) {
             </span>
           </div>
 
-          <h3 className="font-serif text-lg text-atelier-950 font-normal leading-snug group-hover:text-atelier-700 transition-colors line-clamp-1 mb-1">
+          <h3 className="font-serif text-lg text-atelier-950 font-normal leading-snug group-hover:text-champagne-700 transition-colors line-clamp-1 mb-1">
             {outfit.name}
           </h3>
 
-          <p className="text-xs text-atelier-600 line-clamp-2 font-light leading-relaxed mb-3">
+          <p className="text-xs text-[#4A4237] line-clamp-2 font-medium leading-relaxed mb-3">
             {outfit.fabric || outfit.description}
           </p>
         </div>

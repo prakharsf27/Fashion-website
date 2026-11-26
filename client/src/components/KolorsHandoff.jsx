@@ -21,6 +21,7 @@ export default function KolorsHandoff() {
   const {
     userPhotoPreview,
     selectedOutfit,
+    selectedOutfits,
     kolorsSession,
     kolorsHandoffActive,
     setKolorsHandoffActive,
@@ -28,6 +29,7 @@ export default function KolorsHandoff() {
     submitKolorsResult,
     downloadPersonAsset,
     downloadGarmentAsset,
+    downloadAllGarmentAssets,
     clearKolorsSession,
     addToast
   } = useTryOn();
@@ -38,7 +40,9 @@ export default function KolorsHandoff() {
   const [isDragging, setIsDragging] = useState(false);
   const resultInputRef = useRef(null);
 
-  const garmentImage = selectedOutfit?.mainImage || (selectedOutfit?.images && selectedOutfit.images[0]);
+  const activeEnsemble = (selectedOutfits && selectedOutfits.length > 0) ? selectedOutfits : (selectedOutfit ? [selectedOutfit] : []);
+  const primaryGarment = activeEnsemble[0] || selectedOutfit;
+  const garmentImage = primaryGarment?.mainImage || (primaryGarment?.images && primaryGarment.images[0]);
 
   // Handle local result file selection
   const handleResultFileChange = (e) => {
@@ -102,12 +106,12 @@ export default function KolorsHandoff() {
     setIsSubmitting(false);
   };
 
-  // Download both assets
+  // Download both assets (Person + all selected garments)
   const handleDownloadBoth = async () => {
-    addToast('Downloading Person and Garment assets...', 'info');
+    addToast(`Downloading Person Photo and ${activeEnsemble.length} Garment Reference(s)...`, 'info');
     await downloadPersonAsset();
     setTimeout(async () => {
-      await downloadGarmentAsset();
+      await downloadAllGarmentAssets();
     }, 600);
   };
 
@@ -180,38 +184,89 @@ export default function KolorsHandoff() {
           </button>
         </div>
 
-        {/* Selected Garment Reference Box */}
+        {/* Selected Garment(s) Reference Box */}
         <div className="bg-atelier-50 border border-atelier-200 p-4 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] uppercase tracking-widest text-atelier-500 font-semibold">
-                Asset 02 • Garment Reference
+              <span className="text-[10px] uppercase tracking-widest text-[#7A5B20] font-bold">
+                Asset 02 • {activeEnsemble.length > 1 ? `Styled Ensemble (${activeEnsemble.length} Pieces)` : 'Garment Reference'}
               </span>
-              <span className="text-[9px] uppercase font-mono px-2 py-0.5 bg-atelier-200 text-atelier-700">
-                {selectedOutfit.category}
+              <span className="text-[9px] uppercase font-mono px-2 py-0.5 bg-[#FAF6EE] border border-[#D9C49E] text-[#7A5B20] font-bold">
+                {activeEnsemble.length > 1 ? 'Multi-Piece Look' : primaryGarment?.category}
               </span>
             </div>
 
-            <div className="relative aspect-[3/4] bg-atelier-200 overflow-hidden mb-3 border border-atelier-300">
-              <img
-                src={garmentImage}
-                alt={selectedOutfit.name}
-                className="w-full h-full object-cover object-top"
-              />
-              <div className="absolute bottom-2 left-2 right-2 p-1.5 bg-atelier-950/80 backdrop-blur-sm text-white text-[10px] font-serif truncate">
-                {selectedOutfit.name}
+            {activeEnsemble.length === 1 ? (
+              /* Single Garment View */
+              <div className="relative aspect-[3/4] bg-atelier-200 overflow-hidden mb-3 border border-atelier-300">
+                <img
+                  src={garmentImage}
+                  alt={primaryGarment?.name}
+                  className="w-full h-full object-cover object-top"
+                />
+                <div className="absolute bottom-2 left-2 right-2 p-1.5 bg-white/95 border border-[#D9C49E] text-[#7A5B20] text-[10px] font-bold truncate">
+                  {primaryGarment?.name}
+                </div>
               </div>
-            </div>
+            ) : (
+              /* Multi-Garment Ensemble Gallery */
+              <div className="space-y-3 mb-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-[300px] overflow-y-auto pr-1">
+                  {activeEnsemble.map((item) => (
+                    <div 
+                      key={item.id}
+                      className="group/item relative bg-white border border-[#D9C49E] p-1.5 flex flex-col shadow-xs"
+                    >
+                      <div className="relative aspect-[3/4] bg-atelier-100 overflow-hidden mb-1">
+                        <img 
+                          src={item.mainImage} 
+                          alt={item.name}
+                          className="w-full h-full object-cover object-top"
+                        />
+                        <span className="absolute bottom-1 left-1 px-1.5 py-0.5 text-[8px] uppercase tracking-wider font-bold bg-white/90 border border-[#D9C49E] text-[#7A5B20] truncate max-w-[90%]">
+                          {item.category?.split('&')[0]}
+                        </span>
+                      </div>
+                      <p className="font-serif text-[11px] text-atelier-950 truncate mb-1">
+                        {item.name}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => downloadGarmentAsset(item)}
+                        className="py-1 px-1.5 bg-atelier-100 hover:bg-[#FAF6EE] text-[9px] text-[#7A5B20] font-semibold border border-[#D9C49E] flex items-center justify-center space-x-1 transition-colors"
+                        title={`Download ${item.name}`}
+                      >
+                        <Download className="w-2.5 h-2.5" />
+                        <span>Download</span>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
-          <button
-            type="button"
-            onClick={downloadGarmentAsset}
-            className="w-full py-2.5 px-4 bg-white hover:bg-atelier-100 text-atelier-900 border border-atelier-300 text-xs uppercase tracking-wider font-medium flex items-center justify-center space-x-2 transition-colors shadow-sm"
-          >
-            <Download className="w-3.5 h-3.5 text-atelier-600" />
-            <span>Download Outfit Reference</span>
-          </button>
+          <div className="space-y-2">
+            {activeEnsemble.length > 1 ? (
+              <button
+                type="button"
+                onClick={downloadAllGarmentAssets}
+                className="w-full py-2.5 px-4 bg-[#8C6D31] hover:bg-[#684E1C] text-white text-xs uppercase tracking-wider font-bold flex items-center justify-center space-x-2 transition-colors shadow-sm cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5 text-[#E5C989]" />
+                <span>Download All Garment References ({activeEnsemble.length})</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => downloadGarmentAsset(primaryGarment)}
+                className="w-full py-2.5 px-4 bg-white hover:bg-atelier-100 text-atelier-900 border border-atelier-300 text-xs uppercase tracking-wider font-medium flex items-center justify-center space-x-2 transition-colors shadow-sm cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5 text-atelier-600" />
+                <span>Download Outfit Reference</span>
+              </button>
+            )}
+          </div>
         </div>
 
       </div>
@@ -222,16 +277,16 @@ export default function KolorsHandoff() {
           <button
             type="button"
             onClick={handleDownloadBoth}
-            className="text-xs uppercase tracking-wider text-atelier-600 hover:text-atelier-950 underline flex items-center space-x-1.5"
+            className="text-xs uppercase tracking-wider text-[#8C6D31] hover:text-[#5E471C] font-semibold underline flex items-center space-x-1.5 cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5" />
-            <span>Download Both Assets Together</span>
+            <span>Download Portrait & {activeEnsemble.length} Garment Reference(s) Together</span>
           </button>
 
           <button
             type="button"
             onClick={startKolorsHandoff}
-            className="w-full sm:w-auto px-8 py-4 bg-atelier-950 hover:bg-atelier-800 text-white text-xs uppercase tracking-widest font-semibold flex items-center justify-center space-x-3 transition-all shadow-editorial group cursor-pointer"
+            className="w-full sm:w-auto px-8 py-4 bg-atelier-950 hover:bg-[#8C6D31] text-white text-xs uppercase tracking-widest font-semibold flex items-center justify-center space-x-3 transition-all shadow-editorial group cursor-pointer"
           >
             <Sparkles className="w-4 h-4 text-champagne-300 group-hover:rotate-12 transition-transform" />
             <span>Continue with Kolors AI</span>
@@ -268,7 +323,7 @@ export default function KolorsHandoff() {
               <div className="bg-white p-3.5 border border-atelier-200">
                 <span className="font-mono text-champagne-600 font-bold block mb-1">STEP 2</span>
                 <p className="font-light">
-                  Upload the downloaded <strong>Person Photo</strong> in the left box and <strong>Garment Reference</strong> in the right box. Then click <strong>Run</strong>.
+                  Upload your downloaded <strong>Person Photo</strong> in the left box and your <strong>Garment Reference(s)</strong> in the right box. If you styled multiple pieces (e.g. Top, Jeans, Boots), try on each piece or your primary silhouette in Kolors, then click <strong>Run</strong>.
                 </p>
               </div>
 

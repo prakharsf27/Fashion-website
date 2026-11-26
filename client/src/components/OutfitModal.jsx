@@ -112,7 +112,7 @@ export default function OutfitModal() {
             <div>
               {/* Category & Designer Tag */}
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 bg-atelier-200/80 text-atelier-800 font-medium">
+                <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 bg-[#FAF6EE] border border-[#D9C49E] text-[#7A5B20] font-bold shadow-xs">
                   {activeModalOutfit.category}
                 </span>
                 <span className="text-xs font-mono text-atelier-500">

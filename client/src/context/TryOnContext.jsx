@@ -11,6 +11,7 @@ export function TryOnProvider({ children }) {
   
   // Try-on State
   const [selectedOutfit, setSelectedOutfit] = useState(null);
+  const [selectedOutfits, setSelectedOutfits] = useState([]);
   const [userPhotoFile, setUserPhotoFile] = useState(null);
   const [userPhotoPreview, setUserPhotoPreview] = useState(null);
   const [tryOnResult, setTryOnResult] = useState(null);
@@ -52,8 +53,9 @@ export function TryOnProvider({ children }) {
       setOutfits(data);
       
       // If we don't have a selected outfit yet, select first
-      if (!selectedOutfit && data.length > 0) {
-        setSelectedOutfit(data[0]);
+      if (data.length > 0) {
+        if (!selectedOutfit) setSelectedOutfit(data[0]);
+        setSelectedOutfits(prev => (prev.length > 0 ? prev : [data[0]]));
       }
       return data;
     } catch (err) {
@@ -148,8 +150,9 @@ export function TryOnProvider({ children }) {
       addToast('Please upload your portrait photograph or pick a studio model.', 'warning');
       return false;
     }
-    if (!selectedOutfit) {
-      addToast('Please select an outfit to try on.', 'warning');
+    const primaryOutfit = selectedOutfit || (selectedOutfits && selectedOutfits[0]);
+    if (!primaryOutfit) {
+      addToast('Please select at least one outfit piece to try on.', 'warning');
       return false;
     }
 
@@ -160,7 +163,8 @@ export function TryOnProvider({ children }) {
       const session = await KolorsProvider.prepareSession({
         userPhotoFile,
         userPhotoPreview,
-        outfit: selectedOutfit
+        outfit: primaryOutfit,
+        outfits: selectedOutfits.length > 0 ? selectedOutfits : [primaryOutfit]
       });
 
       setKolorsSession(session);
@@ -235,6 +239,43 @@ export function TryOnProvider({ children }) {
     }
   };
 
+  // Multi-Outfit Ensemble Management
+  const toggleOutfitSelection = (outfit) => {
+    if (!outfit) return;
+    setSelectedOutfits(prev => {
+      const exists = prev.some(o => o.id === outfit.id);
+      if (exists) {
+        if (prev.length > 1) {
+          const next = prev.filter(o => o.id !== outfit.id);
+          setSelectedOutfit(next[0] || null);
+          addToast(`Removed ${outfit.name} from your ensemble.`, 'info');
+          return next;
+        } else {
+          addToast('Your ensemble must contain at least one item.', 'warning');
+          return prev;
+        }
+      } else {
+        const next = [...prev, outfit];
+        setSelectedOutfit(outfit);
+        addToast(`Added ${outfit.name} to your ensemble (${next.length} pieces total)!`, 'success');
+        return next;
+      }
+    });
+  };
+
+  const removeOutfitFromEnsemble = (outfitId) => {
+    setSelectedOutfits(prev => {
+      if (prev.length <= 1) {
+        addToast('Your ensemble must contain at least one item.', 'warning');
+        return prev;
+      }
+      const next = prev.filter(o => o.id !== outfitId);
+      setSelectedOutfit(next[0] || null);
+      addToast('Piece removed from ensemble.', 'info');
+      return next;
+    });
+  };
+
   // Download Individual Asset Helpers
   const downloadPersonAsset = async () => {
     const targetUrl = kolorsSession?.userPhoto || userPhotoPreview;
@@ -242,20 +283,39 @@ export function TryOnProvider({ children }) {
       addToast('No person photo available to download.', 'warning');
       return;
     }
-    const cleanName = `kolors_person_photo_${Date.now()}.jpg`;
+    const cleanName = `camerino_person_photo_${Date.now()}.jpg`;
     addToast('Downloading Person Photo...', 'info');
     await KolorsProvider.downloadImage(targetUrl, cleanName);
   };
 
-  const downloadGarmentAsset = async () => {
-    const targetUrl = kolorsSession?.garmentImage || selectedOutfit?.mainImage;
+  const downloadGarmentAsset = async (customOutfit) => {
+    const targetOutfit = customOutfit || selectedOutfit || (selectedOutfits && selectedOutfits[0]);
+    const targetUrl = targetOutfit?.mainImage || kolorsSession?.garmentImage;
     if (!targetUrl) {
       addToast('No garment reference available to download.', 'warning');
       return;
     }
-    const cleanName = `kolors_garment_${(selectedOutfit?.name || 'reference').toLowerCase().replace(/\s+/g, '_')}.jpg`;
-    addToast('Downloading Garment Reference...', 'info');
+    const cleanName = `camerino_garment_${(targetOutfit?.name || 'reference').toLowerCase().replace(/\s+/g, '_')}.jpg`;
+    addToast(`Downloading ${targetOutfit?.name || 'Garment Reference'}...`, 'info');
     await KolorsProvider.downloadImage(targetUrl, cleanName);
+  };
+
+  const downloadAllGarmentAssets = async () => {
+    const list = selectedOutfits.length > 0 ? selectedOutfits : (selectedOutfit ? [selectedOutfit] : []);
+    if (list.length === 0) {
+      addToast('No garment reference available to download.', 'warning');
+      return;
+    }
+    addToast(`Downloading ${list.length} garment references...`, 'info');
+    for (let i = 0; i < list.length; i++) {
+      const o = list[i];
+      const cleanName = `camerino_${(o.category || 'garment').toLowerCase().replace(/[^a-z0-9]/g, '_')}_${o.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}.jpg`;
+      await KolorsProvider.downloadImage(o.mainImage, cleanName);
+      if (i < list.length - 1) {
+        await new Promise(r => setTimeout(r, 450));
+      }
+    }
+    addToast('All garment references downloaded successfully!', 'success');
   };
 
   const clearKolorsSession = async () => {
@@ -334,8 +394,13 @@ export function TryOnProvider({ children }) {
 
   const navigateToTryOnWithOutfit = (outfit) => {
     setSelectedOutfit(outfit);
+    setSelectedOutfits(prev => {
+      if (prev.some(o => o.id === outfit.id)) return prev;
+      return [...prev, outfit];
+    });
     closeOutfitDetail();
     setActiveView('tryon');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -346,6 +411,10 @@ export function TryOnProvider({ children }) {
       refreshOutfits,
       selectedOutfit,
       setSelectedOutfit,
+      selectedOutfits,
+      setSelectedOutfits,
+      toggleOutfitSelection,
+      removeOutfitFromEnsemble,
       userPhotoFile,
       userPhotoPreview,
       setUserPhoto,
@@ -376,6 +445,7 @@ export function TryOnProvider({ children }) {
       submitKolorsResult,
       downloadPersonAsset,
       downloadGarmentAsset,
+      downloadAllGarmentAssets,
       clearKolorsSession,
       showcaseList,
       refreshShowcase

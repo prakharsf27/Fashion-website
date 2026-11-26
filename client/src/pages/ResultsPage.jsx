@@ -22,6 +22,7 @@ export default function ResultsPage() {
     tryOnResult, 
     setActiveView, 
     setSelectedOutfit, 
+    selectedOutfits,
     clearUserPhoto,
     clearKolorsSession,
     addToast
@@ -113,7 +114,7 @@ export default function ResultsPage() {
 
         // Trigger Download
         const link = document.createElement('a');
-        link.download = `The-Fit-Room-${(outfit?.name || 'kolors-look').replace(/\s+/g, '-')}.png`;
+        link.download = `The-Camerino-${(outfit?.name || 'kolors-look').replace(/\s+/g, '-')}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
         addToast('High-resolution lookbook portrait downloaded!', 'success');
@@ -229,13 +230,15 @@ export default function ResultsPage() {
                 </p>
               </div>
 
-              {/* Image 2: Selected Outfit Reference */}
+              {/* Image 2: Selected Outfit / Ensemble Reference */}
               <div className="flex flex-col">
                 <div className="flex items-center justify-between pb-2 mb-2 border-b border-atelier-100">
                   <span className="text-[11px] uppercase tracking-widest font-semibold text-atelier-800">
-                    2. Garment Reference
+                    2. Garment {selectedOutfits?.length > 1 ? `Ensemble (${selectedOutfits.length} Pieces)` : 'Reference'}
                   </span>
-                  <span className="text-[10px] uppercase font-mono text-atelier-400">{outfit?.category}</span>
+                  <span className="text-[10px] uppercase font-mono text-[#8C6D31] font-semibold">
+                    {selectedOutfits?.length > 1 ? 'Multi-Piece Look' : outfit?.category}
+                  </span>
                 </div>
                 <div className="relative aspect-[3/4] bg-atelier-100 border border-atelier-200 overflow-hidden shadow-inner">
                   <img
@@ -243,10 +246,22 @@ export default function ResultsPage() {
                     alt={outfit?.name}
                     className="w-full h-full object-cover object-top"
                   />
-                  <div className="absolute bottom-2 left-2 right-2 p-1.5 bg-atelier-950/85 backdrop-blur-sm text-white text-[10px] font-serif truncate">
+                  <div className="absolute bottom-2 left-2 right-2 p-1.5 bg-white/95 border border-[#D9C49E] text-[#7A5B20] text-[10px] font-bold truncate">
                     {outfit?.name}
                   </div>
                 </div>
+
+                {selectedOutfits && selectedOutfits.length > 1 && (
+                  <div className="mt-2 flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none">
+                    {selectedOutfits.map((piece) => (
+                      <div key={piece.id} className="flex-shrink-0 flex items-center space-x-1 bg-atelier-100 px-2 py-1 border border-atelier-200 text-[9px]">
+                        <img src={piece.mainImage} alt={piece.name} className="w-4 h-5 object-cover" />
+                        <span className="font-serif truncate max-w-[80px]">{piece.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
                 <p className="text-[11px] text-atelier-500 font-light mt-2">
                   Textile composition, silhouette & draping contour.
                 </p>
