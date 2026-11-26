@@ -67,13 +67,13 @@ export default function Navbar() {
 
         {/* Action Button - Golden Luxury Accent */}
         <div className="hidden md:flex items-center">
-          <button
+          {/* <button
             onClick={() => handleNavClick('tryon')}
             className="px-5 py-2.5 bg-[#FAF6EE] hover:bg-[#F3EADB] border border-[#C5A059] text-[#7A5B20] hover:text-[#523A10] text-xs uppercase tracking-widest font-bold transition-all flex items-center space-x-2 shadow-sm rounded-none"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#B88E3E]" />
             <span>Try Your Look</span>
-          </button>
+          </button> */}
         </div>
 
         {/* Mobile menu button */}
