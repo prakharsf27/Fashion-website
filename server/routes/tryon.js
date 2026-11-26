@@ -6,14 +6,21 @@ import { fileURLToPath } from 'url';
 import { outfitStore } from '../data/store.js';
 import { KolorsProvider } from '../services/KolorsProvider.js';
 
+import os from 'os';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const router = express.Router();
 
-// Ensure upload directory exists
-const tryonUploadDir = path.join(__dirname, '../uploads/tryon');
-if (!fs.existsSync(tryonUploadDir)) {
-  fs.mkdirSync(tryonUploadDir, { recursive: true });
+// Ensure writable upload directory (handles Vercel read-only serverless filesystem)
+const isVercel = Boolean(process.env.VERCEL);
+const tryonUploadDir = isVercel ? path.join(os.tmpdir(), 'camerino_tryon') : path.join(__dirname, '../uploads/tryon');
+try {
+  if (!fs.existsSync(tryonUploadDir)) {
+    fs.mkdirSync(tryonUploadDir, { recursive: true });
+  }
+} catch (e) {
+  console.warn('Could not create tryon upload directory:', e.message);
 }
 
 const storage = multer.diskStorage({

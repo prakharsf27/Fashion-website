@@ -18,10 +18,13 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// Ensure directories exist
-const uploadsDir = path.join(__dirname, 'uploads');
-const outfitUploadsDir = path.join(uploadsDir, 'outfits');
-const tryonUploadsDir = path.join(uploadsDir, 'tryon');
+import os from 'os';
+
+// Ensure directories exist (support Vercel read-only filesystem)
+const isVercel = Boolean(process.env.VERCEL);
+const uploadsDir = isVercel ? path.join(os.tmpdir(), 'camerino_uploads') : path.join(__dirname, 'uploads');
+const outfitUploadsDir = isVercel ? path.join(os.tmpdir(), 'camerino_outfits') : path.join(uploadsDir, 'outfits');
+const tryonUploadsDir = isVercel ? path.join(os.tmpdir(), 'camerino_tryon') : path.join(uploadsDir, 'tryon');
 
 [uploadsDir, outfitUploadsDir, tryonUploadsDir].forEach(dir => {
   try {
