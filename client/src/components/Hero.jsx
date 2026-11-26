@@ -44,7 +44,7 @@ export default function Hero() {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
-              <button
+              {/* <button
                 onClick={() => {
                   setActiveView('tryon');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -54,7 +54,7 @@ export default function Hero() {
                 <Sparkles className="w-4 h-4 text-champagne-300 group-hover:rotate-12 transition-transform" />
                 <span>Try Your Look</span>
                 <ArrowRight className="w-4 h-4 text-atelier-400 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </button> */}
 
               <button
                 onClick={() => {
